@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fie-co - Supporto Agricolo</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="2.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: url('immagini/prova1.jpg') no-repeat center center fixed;
+      background-size: cover;
+    }
+  </style>
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="bg-gradient-to-r from-green-700 to-green-500 p-4 shadow-md">
+  <div class="container mx-auto flex justify-between items-center">
+    <!-- Logo -->
+    <div class="flex items-center space-x-3">
+      <img src="immagini/plant-icon.png" alt="Logo Piantina" class="w-10 h-10">
+      <a href="#" class="text-2xl font-bold text-white tracking-wide">Fie-co</a>
+    </div>
+    <!-- Menu di navigazione -->
+    <ul class="flex space-x-6">
+      <li><a href="#" class="nav-link">Home</a></li>
+      <li><a href="wiki.html" class="nav-link">Wiki</a></li>
+      <li><a href="qa.html" class="nav-link">Q&A</a></li>
+      <li><a href="iot.html" class="nav-link">Monitoraggio Dati</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- Hero Section -->
+<header class="py-16 relative">
+  <div class="container mx-auto text-center px-4 sm:px-0 flex flex-col items-center hero-overlay">
+    <h1 class="text-4xl sm:text-5xl font-bold leading-tight mb-4 animate-fadeIn text-highlight">
+      Benvenuti su Fie-co
+    </h1>
+    <p class="text-lg mb-8 max-w-lg text-subtitle">
+      La piattaforma perfetta per supportare gli agricoltori con strumenti avanzati.
+    </p>
+    <button
+      onclick="openModal()"
+      class="bg-green-600 text-white px-6 py-3 rounded hover:bg-green-700 transition-all"
+    >
+      Inizia Ora
+    </button>
+  </div>
+</header>
+
+<!-- Features Section -->
+<section class="py-16 bg-white">
+  <div class="container mx-auto grid grid-cols-1 md:grid-cols-3 gap-12 px-6">
+    <!-- Wiki -->
+    <div id="wiki" class="text-center bg-gray-50 p-6 rounded-lg shadow-lg hover:shadow-2xl transition-all">
+      <img src="immagini/wiki.jpg" alt="Wiki" class="mx-auto mb-6 rounded-full">
+      <h3 class="text-2xl font-bold text-green-700 mb-3">Wiki Informativa</h3>
+      <p class="text-gray-600">Articoli dettagliati sulle migliori pratiche agricole.</p>
+    </div>
+
+    <!-- Q&A -->
+    <div id="qa" class="text-center bg-gray-50 p-6 rounded-lg shadow-lg hover:shadow-2xl transition-all">
+      <img src="immagini/q&a.jpg" alt="Q&A" class="mx-auto mb-6 rounded-full">
+      <h3 class="text-2xl font-bold text-green-700 mb-3">Q&A</h3>
+      <p class="text-gray-600">Risolvi dubbi con il supporto di esperti agricoli.</p>
+    </div>
+
+    <!-- Dashboard IoT -->
+    <div id="iot" class="text-center bg-gray-50 p-6 rounded-lg shadow-lg hover:shadow-2xl transition-all">
+      <img src="immagini/iot.jpg" alt="Monitoraggio Dati" class="mx-auto mb-6 rounded-full">
+      <h3 class="text-2xl font-bold text-green-700 mb-3">Monitoraggio Dati</h3>
+      <p class="text-gray-600">Monitora i campi con dati in tempo reale.</p>
+    </div>
+  </div>
+</section>
+
+<!-- About Section -->
+<section class="py-16 bg-green-50">
+  <div class="container mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+    <!-- Video Area -->
+    <div class="relative">
+      <video autoplay muted loop class="rounded-lg shadow-lg w-full">
+        <source src="immagini/video.mp4" type="video/mp4" />
+        Il tuo browser non supporta il video.
+      </video>
+    </div>
+
+    <!-- Chi Siamo -->
+    <div class="p-6 bg-white rounded-lg shadow-lg">
+      <h2 class="text-3xl font-bold text-green-700 mb-4">Chi siamo</h2>
+      <p class="text-gray-700 text-lg leading-relaxed">
+        Fie-co è la piattaforma che unisce tecnologia e agricoltura, offrendo strumenti avanzati per ottimizzare il lavoro agricolo e migliorare le coltivazioni.
+      </p>
+      <p class="text-gray-700 text-lg leading-relaxed mt-4">
+        La nostra missione è supportare agricoltori e professionisti con soluzioni innovative, dalla gestione dei campi al monitoraggio IoT, fino alla condivisione di conoscenze.
+      </p>
+      <button
+        class="mt-6 bg-green-600 text-white px-6 py-3 rounded hover:bg-green-700 transition-all"
+      >
+        Scopri di più
+      </button>
+    </div>
+  </div>
+</section>
+
+<section class="py-16 bg-white">
+  <div class="container mx-auto text-center">
+    <h2 class="text-3xl font-bold text-green-700 mb-8">Cosa dicono di noi</h2>
+    <!-- Carousel -->
+    <div id="testimonial-carousel" class="relative overflow-hidden">
+      <div class="carousel-track flex transition-transform duration-700 ease-in-out">
+        <!-- Testimonianza 1 -->
+        <div class="testimonial-slide p-6 bg-gray-50 rounded-lg shadow-lg flex-shrink-0 w-full md:w-1/3 mx-auto">
+          <img
+            src="immagini/user1.jpg"
+            alt="Giuseppe Marvulli"
+            class="w-24 h-24 mx-auto rounded-full mb-4 border-4 border-green-600"
+          />
+          <p class="text-gray-700 italic">
+            "Fie-co ha rivoluzionato il mio lavoro agricolo. Gli strumenti sono facili da usare e davvero utili!"
+          </p>
+          <h4 class="text-green-700 font-bold mt-4">Giuseppe Marvulli</h4>
+          <p class="text-sm text-gray-500">Agricoltore</p>
+        </div>
+        <!-- Testimonianza 2 -->
+        <div class="testimonial-slide p-6 bg-gray-50 rounded-lg shadow-lg flex-shrink-0 w-full md:w-1/3 mx-auto">
+          <img
+            src="immagini/user2.jpg"
+            alt="Bianca Rossi"
+            class="w-24 h-24 mx-auto rounded-full mb-4 border-4 border-green-600"
+          />
+          <p class="text-gray-700 italic">
+            "Grazie a Fie-co ho trovato risposte utilissime per migliorare la qualità del mio raccolto."
+          </p>
+          <h4 class="text-green-700 font-bold mt-4">Bianca Rossi</h4>
+          <p class="text-sm text-gray-500">Agronoma</p>
+        </div>
+        <!-- Testimonianza 3 -->
+        <div class="testimonial-slide p-6 bg-gray-50 rounded-lg shadow-lg flex-shrink-0 w-full md:w-1/3 mx-auto">
+          <img
+            src="immagini/user3.jpg"
+            alt="Marco Fabrizi"
+            class="w-24 h-24 mx-auto rounded-full mb-4 border-4 border-green-600"
+          />
+          <p class="text-gray-700 italic">
+            "Con Fie-co posso monitorare i miei campi in tempo reale. Non potrei più farne a meno!"
+          </p>
+          <h4 class="text-green-700 font-bold mt-4">Marco Fabrizi</h4>
+          <p class="text-sm text-gray-500">Esperto Agricolo</p>
+        </div>
+      </div>
+      <!-- Frecce di Navigazione -->
+      <button id="prev" class="absolute left-0 top-1/2 transform -translate-y-1/2 bg-green-600 text-white rounded-full w-10 h-10 flex items-center justify-center hover:bg-green-700">
+        &lt;
+      </button>
+      <button id="next" class="absolute right-0 top-1/2 transform -translate-y-1/2 bg-green-600 text-white rounded-full w-10 h-10 flex items-center justify-center hover:bg-green-700">
+        &gt;
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- Statistiche e Risultati -->
+<section class="py-16 bg-gray-100">
+  <div class="container mx-auto text-center">
+    <h2 class="text-4xl font-bold text-green-700 mb-12">Il nostro impatto</h2>
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-12">
+      <!-- Statistica 1 -->
+      <div class="flex flex-col items-center p-6 bg-white rounded-lg shadow-lg hover:shadow-2xl transition-all">
+        <div class="text-green-600 text-6xl mb-4">
+          <i class="fas fa-users"></i>
+        </div>
+        <div class="text-5xl font-bold text-green-600">10k+</div>
+        <p class="text-gray-600 mt-2">Utenti Registrati</p>
+      </div>
+      <!-- Statistica 2 -->
+      <div class="flex flex-col items-center p-6 bg-white rounded-lg shadow-lg hover:shadow-2xl transition-all">
+        <div class="text-green-600 text-6xl mb-4">
+          <i class="fas fa-question-circle"></i>
+        </div>
+        <div class="text-5xl font-bold text-green-600">5k+</div>
+        <p class="text-gray-600 mt-2">Domande Risolte</p>
+      </div>
+      <!-- Statistica 3 -->
+      <div class="flex flex-col items-center p-6 bg-white rounded-lg shadow-lg hover:shadow-2xl transition-all">
+        <div class="text-green-600 text-6xl mb-4">
+          <i class="fas fa-book"></i>
+        </div>
+        <div class="text-5xl font-bold text-green-600">500+</div>
+        <p class="text-gray-600 mt-2">Articoli Pubblicati</p>
+      </div>
+      <!-- Statistica 4 -->
+      <div class="flex flex-col items-center p-6 bg-white rounded-lg shadow-lg hover:shadow-2xl transition-all">
+        <div class="text-green-600 text-6xl mb-4">
+          <i class="fas fa-chart-line"></i>
+        </div>
+        <div class="text-5xl font-bold text-green-600">1M+</div>
+        <p class="text-gray-600 mt-2">Dati Monitorati</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- Newsletter -->
+<section class="py-16 bg-green-600 text-white">
+  <div class="container mx-auto text-center">
+    <h2 class="text-3xl font-bold mb-6">Iscriviti alla nostra Newsletter</h2>
+    <p class="mb-8 text-lg">Rimani aggiornato sulle ultime novità e offerte speciali di Fie-co.</p>
+    <form class="flex flex-col md:flex-row justify-center items-center gap-4">
+      <input
+        type="email"
+        placeholder="Inserisci la tua email"
+        class="px-6 py-3 rounded-lg text-gray-700 focus:outline-none focus:ring-2 focus:ring-green-400"
+      />
+      <button
+        type="submit"
+        class="bg-white text-green-600 px-6 py-3 rounded-lg font-bold hover:bg-gray-100 transition-all"
+      >
+        Iscriviti
+      </button>
+    </form>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="bg-green-600 text-white py-6">
+  <div class="container mx-auto text-center">
+    <p>Fie-co &copy; 2024 - Supporto completo per gli agricoltori</p>
+  </div>
+</footer>
+
+<!-- Modal for Login/Register -->
+<div id="modal" class="modal-overlay hidden fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
+  <div class="modal-content bg-white rounded-lg shadow-lg w-4/5 md:w-1/3 p-6 relative">
+    <!-- Close Button -->
+    <button onclick="closeModal()" class="absolute top-3 right-3 text-gray-500 hover:text-gray-800 text-2xl">&times;</button>
+    
+    <!-- Login Section -->
+    <div id="login-section">
+      <h2 class="text-2xl font-bold text-green-700 mb-4 text-center">Accedi</h2>
+      <form class="space-y-4">
+        <div>
+          <label for="email" class="block text-gray-700 font-semibold">Email</label>
+          <input
+            type="email"
+            id="email"
+            class="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-green-500"
+            placeholder="Inserisci la tua email"
+          />
+        </div>
+        <div>
+          <label for="password" class="block text-gray-700 font-semibold">Password</label>
+          <input
+            type="password"
+            id="password"
+            class="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-green-500"
+            placeholder="Inserisci la tua password"
+          />
+        </div>
+        <button
+          type="submit"
+          class="bg-green-600 text-white px-4 py-2 rounded w-full hover:bg-green-700"
+        >
+          Accedi
+        </button>
+      </form>
+
+      <div class="flex justify-between items-center mt-4">
+        <button
+          onclick="loginAsGuest()"
+          class="bg-gray-200 text-gray-800 px-4 py-2 rounded hover:bg-gray-300"
+        >
+          Accedi come Ospite
+        </button>
+        <button
+          onclick="showAdminLogin()"
+          class="text-sm text-green-600 hover:underline"
+        >
+          Accedi come Amministratore
+        </button>
+      </div>
+
+      <div class="text-center mt-4">
+        <button
+          type="button"
+          onclick="showRegister()"
+          class="text-green-600 hover:underline"
+        >
+          Non hai un account? Registrati
+        </button>
+      </div>
+    </div>
+
+    <!-- Registration Section -->
+<div id="register-section" class="hidden">
+  <h2 class="text-2xl font-bold text-green-700 mb-4 text-center">Registrati</h2>
+  <form class="space-y-4">
+    <div>
+      <label for="reg-email" class="block text-gray-700 font-semibold">Email</label>
+      <input
+        type="email"
+        id="reg-email"
+        class="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-green-500"
+        placeholder="Inserisci la tua email"
+      />
+    </div>
+    <div>
+      <label for="reg-password" class="block text-gray-700 font-semibold">Password</label>
+      <input
+        type="password"
+        id="reg-password"
+        class="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-green-500"
+        placeholder="Crea una password"
+      />
+    </div>
+    <div>
+      <label for="phone" class="block text-gray-700 font-semibold">Numero di Telefono</label>
+      <input
+        type="tel"
+        id="phone"
+        class="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-green-500"
+        placeholder="Inserisci il tuo numero di telefono"
+      />
+    </div>
+    <div>
+      <label for="address" class="block text-gray-700 font-semibold">Indirizzo</label>
+      <input
+        type="text"
+        id="address"
+        class="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-green-500"
+        placeholder="Inserisci il tuo indirizzo"
+      />
+    </div>
+    <div>
+      <label for="user-type" class="block text-gray-700 font-semibold">Che tipo di utente sei?</label>
+      <select
+        id="user-type"
+        class="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-green-500"
+      >
+        <option value="beginner">Agricoltore</option>
+        <option value="expert">Agronomo</option>
+        <option value="other">Altro</option>
+      </select>
+    </div>
+    <button
+      type="submit"
+      class="bg-green-600 text-white px-4 py-2 rounded w-full hover:bg-green-700"
+    >
+      Completa Registrazione
+    </button>
+  </form>
+
+  <div class="text-center mt-4">
+    <button
+      type="button"
+      onclick="showLogin()"
+      class="text-green-600 hover:underline"
+    >
+      Torna a Login
+    </button>
+  </div>
+</div>
+
+<!-- Admin Login Section -->
+<div id="admin-login-section" class="hidden">
+  <h2 class="text-2xl font-bold text-red-600 mb-4 text-center">Accesso Amministratore</h2>
+  <form class="space-y-4">
+    <div>
+      <label for="admin-email" class="block text-gray-700 font-semibold">Email Amministratore</label>
+      <input
+        type="email"
+        id="admin-email"
+        class="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-red-500"
+        placeholder="Inserisci la tua email"
+      />
+    </div>
+    <div>
+      <label for="admin-password" class="block text-gray-700 font-semibold">Password</label>
+      <input
+        type="password"
+        id="admin-password"
+        class="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-red-500"
+        placeholder="Inserisci la tua password"
+      />
+    </div>
+    <button
+      type="submit"
+      class="bg-red-600 text-white px-4 py-2 rounded w-full hover:bg-red-700"
+    >
+      Accedi come Amministratore
+    </button>
+  </form>
+  <div class="text-center mt-4">
+    <button
+      type="button"
+      onclick="showLogin()"
+      class="text-green-600 hover:underline"
+    >
+      Torna a Login
+    </button>
+  </div>
+</div>
+
+<!-- JavaScript -->
+<script>
+  const modal = document.getElementById("modal");
+  const loginSection = document.getElementById("login-section");
+  const registerSection = document.getElementById("register-section");
+  const adminLoginSection = document.getElementById("admin-login-section");
+
+  // Mostra la modale e resettala allo stato di login
+  function openModal() {
+    modal.classList.remove("hidden"); // Mostra la modale
+    resetModal(); // Resetta la modale allo stato iniziale (login)
+  }
+
+  // Nasconde la modale
+  function closeModal() {
+    modal.classList.add("hidden"); // Nasconde la modale
+  }
+
+  // Mostra la schermata di registrazione
+  function showRegister() {
+    loginSection.classList.add("hidden"); // Nasconde la sezione login
+    registerSection.classList.remove("hidden"); // Mostra la sezione registrazione
+    adminLoginSection.classList.add("hidden"); // Nasconde la sezione admin
+  }
+
+  // Mostra la schermata di login
+  function showLogin() {
+    loginSection.classList.remove("hidden"); // Mostra la sezione login
+    registerSection.classList.add("hidden"); // Nasconde la sezione registrazione
+    adminLoginSection.classList.add("hidden"); // Nasconde la sezione admin
+  }
+
+  // Mostra la schermata di accesso per amministratore
+  function showAdminLogin() {
+    loginSection.classList.add("hidden"); // Nasconde la sezione login
+    registerSection.classList.add("hidden"); // Nasconde la sezione registrazione
+    adminLoginSection.classList.remove("hidden"); // Mostra la sezione admin
+  }
+
+  // Resetta la modale allo stato iniziale (login)
+  function resetModal() {
+    showLogin(); // Imposta la modale sulla schermata di login
+  }
+
+  // Azione per il pulsante "Accedi come Ospite"
+  function loginAsGuest() {
+    alert("Stai accedendo come ospite!");
+    closeModal(); // Chiude la modale
+  }
+</script>
+<script>
+  const track = document.querySelector(".carousel-track");
+  const slides = Array.from(track.children);
+  const nextButton = document.querySelector("#next");
+  const prevButton = document.querySelector("#prev");
+
+  let currentIndex = 0;
+
+  function updateCarousel(index) {
+    const slideWidth = slides[0].getBoundingClientRect().width;
+    track.style.transform = `translateX(-${index * slideWidth}px)`;
+  }
+
+  nextButton.addEventListener("click", () => {
+    // Se è l'ultimo, torna al primo
+    currentIndex = (currentIndex + 1) % slides.length;
+    updateCarousel(currentIndex);
+  });
+
+  prevButton.addEventListener("click", () => {
+    // Se è il primo, torna all'ultimo
+    currentIndex = (currentIndex - 1 + slides.length) % slides.length;
+    updateCarousel(currentIndex);
+  });
+</script>
+</body>
+</html>
+
+</body>
+</html>  

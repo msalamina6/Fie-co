@@ -1,0 +1,328 @@
+body {
+  font-family: 'Arial', sans-serif;
+  margin: 0;
+  padding: 0;
+  background: url('immagini/prova1.jpg') no-repeat center center fixed;
+  background-size: cover;
+  animation: backgroundScroll 10s linear infinite;
+}
+
+/* Background Animation */
+@keyframes backgroundScroll {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: 0 100%;
+  }
+}
+
+/* Features Section */
+section img {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  border: 2px solid #228b22;
+  padding: 5px;
+  transition: transform 0.3s, border-color 0.3s;
+}
+section img:hover {
+  transform: scale(1.1);
+  border-color: #145214;
+}
+
+/* Modal Styles */
+.modal-overlay {
+  display: none;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-overlay.active {
+  display: flex;
+}
+
+.modal-content {
+  background: linear-gradient(to bottom, #ffffff, #f9f9f9);
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+  width: 90%;
+  max-width: 350px;
+  animation: fadeIn 0.4s ease-in-out;
+}
+
+/* Pulsanti generali */
+button {
+  font-size: 1rem;
+  background: #228b22;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+
+
+/* Pulsanti secondari (es. Accedi come Ospite) */
+button.bg-gray-200:hover {
+  background-color: #d4edda; /* Verde molto chiaro */
+  color: #145214;
+}
+
+/* Stile per la schermata di accesso amministratore */
+#admin-login-section {
+  background: #ffecec; /* Sfondo rosato */
+  padding: 20px;
+  border-radius: 12px;
+}
+#admin-login-section h2 {
+  color: #b71c1c; /* Testo rosso scuro */
+}
+
+button.bg-red-600:hover {
+  background-color: #ff6666; /* Rosso chiaro al passaggio del mouse */
+}
+
+/* Sezione "Chi Siamo" */
+.bg-green-50 {
+  background-color: #f0fdf4;
+}
+
+video {
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+button:hover {
+  background-color: #0ed700a4; /* Verde chiaro */
+  color: #ffffff; /* Testo bianco per leggibilità */
+  transform: scale(1.05); /* Leggera animazione */
+}
+
+/* Ombra per il titolo e il sottotitolo */
+.text-highlight {
+  color: #2aff09d4; /* Verde chiaro */
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7); /* Ombra scura per migliorare contrasto */
+}
+
+.text-subtitle {
+  color: #ffffff; /* Bianco puro */
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+}
+
+/* Overlay scura per il background */
+.hero-overlay::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5); /* Sovrapposizione scura */
+  z-index: -1; /* Posizionamento dietro al testo */
+}
+
+/* Sezione testimonianze */
+#testimonial-carousel {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+
+.carousel-track {
+  display: flex;
+  gap: 2rem; /* Più spazio tra i riquadri */
+  justify-content: center; /* Centrare i riquadri */
+}
+
+
+.testimonial-slide {
+  flex-shrink: 0;
+  width: 100%;
+  max-width: 320px; /* Aumenta leggermente la larghezza */
+  padding: 20px; /* Spazio interno */
+  margin: 20px auto; /* Aggiungi margini verticali e centrali */
+  transition: transform 0.5s ease-in-out, box-shadow 0.3s ease;
+  border-radius: 16px; /* Arrotonda i bordi */
+  background-color: #ffffff; /* Sfondo bianco */
+}
+
+
+/* Effetti su immagini */
+.testimonial-slide img {
+  width: 100px; /* Aumenta leggermente la dimensione */
+  height: 100px;
+  object-fit: cover;
+  border-radius: 50%; /* Immagine rotonda */
+  border: 4px solid #228b22; /* Bordo verde */
+  margin-bottom: 15px;
+}
+
+.testimonial-slide img:hover {
+  transform: scale(1.1);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* Navigazione frecce */
+button#prev, button#next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: #228b22;
+  color: white;
+  border: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+button#prev:hover, button#next:hover {
+  background-color: #32cd32;
+}
+
+/* Ombra dei box */
+.testimonial-slide {
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+.testimonial-slide:hover {
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25); /* Ombra più evidente */
+  transform: scale(1.05); /* Leggero ingrandimento */
+}
+
+/* Animazione al caricamento */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.p-6 {
+  animation: fadeIn 0.6s ease-in-out;
+}
+
+/* Statistiche */
+.bg-white {
+  background-color: #f9f9f9;
+}
+
+.text-green-700 {
+  color: #228b22;
+}
+
+.text-green-600 {
+  color: #32cd32;
+}
+
+.grid-cols-4 div {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.grid-cols-4 div:hover {
+  transform: scale(1.1);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Sezione Il nostro impatto */
+.bg-gray-100 {
+  background-color: #f7f7f7;
+}
+
+h2.text-4xl {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #228b22;
+}
+
+.grid-cols-4 div {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.grid-cols-4 div:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+}
+
+.text-5xl {
+  font-size: 3rem;
+  font-weight: bold;
+  color: #32cd32;
+}
+
+.text-gray-600 {
+  font-size: 1rem;
+  color: #777777;
+}
+
+/* Icone */
+.text-6xl i {
+  font-size: 4rem;
+  color: #32cd32;
+}
+
+
+/* Newsletter */
+.bg-green-600 {
+  background-color: #228b22;
+}
+
+form input {
+  width: 300px;
+  max-width: 100%;
+}
+
+form button:hover {
+  background-color: #145214;
+  color: white;
+  transform: scale(1.05);
+}
+
+/* Navbar */
+nav {
+  background: linear-gradient(to right, #2f855a, #38a169); /* Gradiente moderno */
+  padding: 1rem 0;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  font-family: 'Arial', sans-serif;
+}
+
+/* Link di navigazione */
+.nav-link {
+  color: #ffffff;
+  font-size: 1rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+  padding: 0.5rem;
+  position: relative;
+}
+
+.nav-link:hover {
+  color: #f0fdf4;
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 2px;
+  background: #ffffff;
+  transition: width 0.3s ease;
+}
+
+.nav-link:hover::after {
+  width: 100%;
+}
+
