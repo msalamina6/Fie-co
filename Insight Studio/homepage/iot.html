@@ -6,9 +6,9 @@
   <title>Fie-co - Dashboard IoT</title>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
   <link rel="stylesheet" href="iot.css">
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> <!-- Per i grafici -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
-<body class="bg-green-100 font-sans leading-normal tracking-normal">
+<body class="bg-gray-100 font-sans leading-normal tracking-normal">
 
 <!-- Navbar -->
 <nav class="bg-gradient-to-r from-green-700 to-green-500 p-4 shadow-md">
@@ -20,13 +20,13 @@
       </div>
       <!-- Menu di navigazione -->
       <ul class="flex space-x-6">
-        <li><a href="1.html" class="nav-link">Home</a></li>
-        <li><a href="wiki.html" class="nav-link">Wiki</a></li>
-        <li><a href="qa.html" class="nav-link">Q&A</a></li>
-        <li><a href="iot.html" class="nav-link">Monitoraggio Dati</a></li>
+        <li><a href="1.html" class="nav-link text-white">Home</a></li>
+        <li><a href="wiki.html" class="nav-link text-white">Wiki</a></li>
+        <li><a href="qa.html" class="nav-link text-white">Q&A</a></li>
+        <li><a href="iot.html" class="nav-link text-white">Monitoraggio Dati</a></li>
       </ul>
     </div>
-  </nav>
+</nav>
 
 <!-- Header Dashboard IoT -->
 <header class="bg-green-600 text-white text-center py-16">
@@ -105,31 +105,29 @@
           <td class="px-4 py-2">62%</td>
           <td class="px-4 py-2">31%</td>
         </tr>
-        <!-- Aggiungi altre righe di dati -->
       </tbody>
     </table>
   </section>
 </main>
 
 <!-- Footer -->
-<footer class="bg-green-600 text-white py-6">
+<footer class="bg-green-700 text-white py-6">
   <div class="container mx-auto text-center">
     <p>Fie-co &copy; 2024 - Monitoraggio Dati IoT</p>
   </div>
 </footer>
 
 <script>
-  // Esempio di codice JavaScript per il grafico (puoi usare i tuoi dati reali)
   const ctx = document.getElementById('sensorChart').getContext('2d');
   const sensorChart = new Chart(ctx, {
     type: 'line',
     data: {
-      labels: ['Lun', 'Mer', 'Gio', 'Ven', 'Sab', 'Dom'],
+      labels: ['Lun','Mar', 'Mer', 'Gio', 'Ven', 'Sab', 'Dom'],
       datasets: [{
         label: 'Temperatura (°C)',
         data: [22, 21, 23, 22, 24, 25, 23],
-        borderColor: 'rgba(54, 162, 235, 1)',
-        backgroundColor: 'rgba(54, 162, 235, 0.2)',
+        borderColor: 'rgba(40, 167, 69, 1)', /* Verde */
+        backgroundColor: 'rgba(40, 167, 69, 0.2)', /* Verde chiaro */
         borderWidth: 1
       }]
     },
