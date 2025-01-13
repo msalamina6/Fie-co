@@ -4,3 +4,15 @@
 {
   height:10vh;
 }
+
+.page {
+  height: 100vh !important;
+  overflow: scroll;
+}
+
+.right-sidebar{
+  
+  top:0;
+  right:0;
+  height:100%;
+ }

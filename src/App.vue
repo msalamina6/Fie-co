@@ -7,13 +7,13 @@ import Chat from './components/Chat.vue'
 
 <template>
     <div class="grid grid-cols-4">
-      <div class="col-span-3">
+      <div class="col-span-3 page">
       <Navbar></Navbar>
         <RouterView />
         <Footer></Footer>
       </div>
       
-      <Chat class="col-span-1"></Chat>   
+      <Chat class="col-span-1 right-sidebar"></Chat>   
     </div>
 </template>
 

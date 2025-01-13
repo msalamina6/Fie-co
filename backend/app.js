@@ -61,4 +61,21 @@ app.post('/chatbot/message', async (req, res) => {
     })
 });
 
+app.get('/chatbot/getHistory', async (req, res) => {
+    var chatHistory = await db.manyOrNone("SELECT * FROM public.messaggi WHERE email_utente = $<email> ORDER BY timestamp",{
+        email: "mock@mock.it"
+    })
+
+    var result = [];
+
+    chatHistory.forEach(element => {
+        result.push({
+            sender: element.tipo_mittente,
+            message:element.testo
+            })
+        });
+    
+        res.send({response: result})
+})
+
 app.listen(port, () => console.log(`Fie-co app listening on port ${port}!`));
