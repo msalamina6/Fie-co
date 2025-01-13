@@ -4,7 +4,7 @@ const cors = require('cors');
 const https = require('https');
 const axios = require('axios');
 const pgp = require('pg-promise')({schema: "public"})
-const db = pgp('postgres://postgres:JLkKS_Nq4HM$s_q@db.izbedfpdwagbszmfxbtt.supabase.co:5432/postgres')
+const db = pgp('postgresql://postgres.izbedfpdwagbszmfxbtt:JLkKS_Nq4HM$s_q@aws-0-eu-central-1.pooler.supabase.com:5432/postgres')
 
 const app = express();
 const port = 5000;
