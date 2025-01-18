@@ -1,0 +1,31 @@
+ import axios from 'axios'
+ import ToastPlugin from 'vue-toast-notification';
+ import {useToast} from 'vue-toast-notification';
+
+const $toast = useToast();
+
+ export function getResponse(message) {
+    console.log(message)
+    var body = {
+        messaggio: message
+     }
+    return axios.post("http://localhost:5000/chatbot/message", body)
+    
+}
+
+export function getHistory() {
+    return axios.get("http://localhost:5000/chatbot/getHistory")
+    
+}
+
+export function login(body)
+{
+    console.log(body)
+    return axios.post("http://localhost:5000/login", body)
+}
+
+export function signUp(body)
+{
+    console.log(body)
+    return axios.post("http://localhost:5000/signup", body)
+}

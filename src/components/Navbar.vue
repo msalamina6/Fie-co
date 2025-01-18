@@ -19,6 +19,7 @@ import {RouterLink} from 'vue-router'
                 <li><a href="wiki.html" class="nav-link">Wiki</a></li>
                 <li><a href="qa.html" class="nav-link">Q&A</a></li>
                 <li><a href="iot.html" class="nav-link">Monitoraggio Dati</a></li>
+                <li><button @click="$emit('toggleChat')">Chatbot</button></li>
                 </ul>
             </div>
         </nav> 

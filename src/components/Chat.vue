@@ -37,7 +37,7 @@
     </div>
 </template>
 <script setup>
-import { getResponse, getHistory } from "./service/ApiRest.js"
+import { getResponse, getHistory } from "../service/ApiRest.js"
 import { ref, getCurrentInstance, onMounted } from 'vue'
 
 var chatMessage = ref([]);
