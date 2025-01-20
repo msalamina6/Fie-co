@@ -1,21 +1,15 @@
-import { createRouter, createWebHistory } from 'vue-router'
-import LoginSignUp from '../views/LoginSignUp.vue'
-import HomeView from '../views/HomeView.vue'
+import { createRouter, createWebHistory } from 'vue-router';
+import HomeView from '../views/HomeView.vue';
+import Wiki from '../views/Wiki.vue'; // Importa il componente Wiki
+
+const routes = [
+  { path: '/', name: 'Home', component: HomeView },
+  { path: '/wiki', name: 'Wiki', component: Wiki }, // Configura la rotta Wiki
+];
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
-  routes: [
-    {
-      path: '/loginup',
-      name: 'login/signup',
-      component: LoginSignUp,
-    },    
-    {
-      path: '/',
-      name: 'Home',
-      component: HomeView,
-    },
-  ],
-})
+  routes,
+});
 
-export default router
+export default router;
