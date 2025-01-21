@@ -1,38 +1,34 @@
 <template>
   <div class="wiki-page">
-    <!-- Hero Section -->
-    <section class="hero">
-      <h2 class="hero-title">Wiki di Fie-co</h2>
-      <p class="hero-subtitle">Condividi conoscenze, scopri soluzioni: la guida completa per gli agricoltori</p>
-      <div class="search-bar">
-        <input
-          type="text"
-          placeholder="Cerca articoli..."
-          v-model="searchQuery"
-        />
-        <button @click="searchArticles">Cerca</button>
-      </div>
-    </section>
+    <h2 class="page-title">Wiki di Fie-co</h2>
+    <p class="page-subtitle">Un elenco di articoli utili per gli agricoltori</p>
 
-    <!-- Featured Articles -->
-    <section class="featured-articles">
-      <h3 class="featured-title">Articoli in Evidenza</h3>
-      <div v-if="filteredArticles.length" class="articles">
-        <div
-          class="article-card"
-          v-for="article in filteredArticles"
-          :key="article.id"
-        >
-          <div class="image-container">
-            <img :src="article.image" :alt="article.title" />
-          </div>
-          <h4>{{ article.title }}</h4>
-          <p>{{ article.description }}</p>
-          <button @click="viewArticle(article.id)">Leggi di più</button>
-        </div>
-      </div>
-      <p v-else class="no-articles">Nessun articolo trovato. Prova a cercare di nuovo.</p>
-    </section>
+    <!-- Stato di caricamento o errore -->
+    <div v-if="loading" class="loading-message">Caricamento degli articoli...</div>
+    <div v-else-if="error" class="error-message">Errore: {{ error }}</div>
+
+    <!-- Tabella degli articoli -->
+    <table v-else class="articles-table">
+      <thead>
+        <tr>
+          <th>Titolo</th>
+          <th>Terreno</th>
+          <th>Nutrienti</th>
+          <th>Azioni</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Ciclo sugli articoli -->
+        <tr v-for="article in articles" :key="article.id">
+          <td>{{ article.titolo }}</td>
+          <td>{{ article.terreno }}</td>
+          <td>{{ article.nutrienti }}</td>
+          <td>
+            <button @click="viewArticle(article.id)">Visualizza</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </template>
 
@@ -40,43 +36,33 @@
 export default {
   data() {
     return {
-      searchQuery: '',
-      articles: [
-        {
-          id: 1,
-          title: 'Tecniche Essenziali per Aumentare la Produzione Agricola',
-          description: 'Ottimizza i raccolti con tecnologie moderne.',
-          image: new URL('@/assets/articolo1.jpg', import.meta.url).href,
-        },
-        {
-          id: 2,
-          title: 'Analizzare e Migliorare la Fertilità',
-          description: 'Comprendi e migliora il terreno.',
-          image: new URL('@/assets/articolo2.jpg', import.meta.url).href,
-        },
-        {
-          id: 3,
-          title: 'Sensori IoT per l’Agricoltura',
-          description: 'Impara come i sensori intelligenti possono ottimizzare le tue coltivazioni.',
-          image: new URL('@/assets/articolo3.jpg', import.meta.url).href,
-        },
-      ],
+      articles: [], // Array degli articoli
+      loading: true, // Stato di caricamento
+      error: null, // Stato di errore
     };
   },
-  computed: {
-    filteredArticles() {
-      return this.articles.filter((article) =>
-        article.title.toLowerCase().includes(this.searchQuery.toLowerCase())
-      );
+  methods: {
+    // Metodo per chiamare il backend e ottenere gli articoli
+    async fetchArticles() {
+      try {
+        const response = await fetch('http://localhost:5000/api/articles'); // Chiamata all'API del backend
+        const data = await response.json();
+        this.articles = data.articles; // Popola l'array degli articoli
+      } catch (err) {
+        this.error = 'Errore durante il caricamento degli articoli';
+        console.error(err);
+      } finally {
+        this.loading = false; // Rimuove lo stato di caricamento
+      }
+    },
+    // Metodo per visualizzare i dettagli di un articolo
+    viewArticle(id) {
+      console.log('Visualizza articolo con ID:', id);
+      // Implementa la navigazione o il modale per i dettagli
     },
   },
-  methods: {
-    searchArticles() {
-      console.log('Ricerca articoli:', this.searchQuery);
-    },
-    viewArticle(id) {
-      this.$router.push(`/article/${id}`);
-    },
+  mounted() {
+    this.fetchArticles(); // Carica gli articoli al montaggio del componente
   },
 };
 </script>
@@ -84,110 +70,60 @@ export default {
 <style scoped>
 .wiki-page {
   padding: 20px;
-  background-color: #f9f9f9;
-  min-height: 100vh;
+  font-family: Arial, sans-serif;
 }
-.hero {
-  text-align: center;
-  background-color: #388e3c;
-  color: white;
-  padding: 40px 20px;
-}
-.hero-title {
-  font-size: 36px;
+
+.page-title {
+  font-size: 24px;
+  font-weight: bold;
   margin-bottom: 10px;
 }
-.hero-subtitle {
-  font-size: 18px;
+
+.page-subtitle {
+  font-size: 16px;
   margin-bottom: 20px;
 }
-.search-bar {
-  display: flex;
-  justify-content: center;
-  gap: 10px;
+
+.loading-message,
+.error-message {
+  text-align: center;
+  margin: 20px 0;
+  font-weight: bold;
 }
-.search-bar input {
-  padding: 10px;
-  font-size: 16px;
-  border-radius: 4px;
-}
-.search-bar button {
-  padding: 10px;
-  font-size: 16px;
-  background-color: #2e7d32;
-  color: white;
-  border: none;
-  border-radius: 4px;
-}
-.featured-articles {
+
+.articles-table {
+  width: 100%;
+  border-collapse: collapse;
   margin-top: 20px;
 }
-.featured-title {
-  font-size: 32px;
-  text-align: center;
-  color: #2e7d32;
+
+.articles-table th,
+.articles-table td {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: left;
+}
+
+.articles-table th {
+  background-color: #f4f4f4;
   font-weight: bold;
-  margin-bottom: 20px;
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
 }
-.articles {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
+
+.articles-table tr:hover {
+  background-color: #f9f9f9;
 }
-.article-card {
-  background-color: #ffffff;
-  border: 1px solid #e0e0e0;
-  padding: 20px;
-  border-radius: 8px;
-  text-align: center;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-.article-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-}
-.image-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 150px;
-  margin-bottom: 15px;
-}
-.article-card img {
-  max-width: 100%;
-  max-height: 100%;
-  object-fit: contain;
-  border-radius: 4px;
-}
-.article-card h4 {
-  font-size: 20px;
-  font-weight: bold;
-  color: #2e7d32;
-  margin-bottom: 10px;
-}
-.article-card p {
-  font-size: 14px;
-  color: #666;
-  margin-bottom: 20px;
-}
-.article-card button {
-  padding: 10px 20px;
+
+button {
+  padding: 5px 10px;
   background-color: #2e7d32;
   color: white;
   border: none;
   border-radius: 4px;
-  font-size: 14px;
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
-.article-card button:hover {
+
+button:hover {
   background-color: #43a047;
-}
-.no-articles {
-  color: #888;
-  text-align: center;
-  margin-top: 20px;
 }
 </style>
