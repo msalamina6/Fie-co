@@ -7,7 +7,7 @@
           <span>Chatbot AI</span>
         </div>
         
-        <div className="flex-1 overflow-y-auto p-4" id="chatHistory">
+        <div className="flex-1 overflow-y-auto p-4">
           <div className="flex flex-col space-y-2">
             <!-- Messaggi-->
             <div v-for="messaggio, key in chatMessage" :key="key">
@@ -22,7 +22,6 @@
                     </div>
                 </div>
             </div>
-            <div id="lastEl"></div>
           </div>
         </div>
         
@@ -37,8 +36,8 @@
     </div>
 </template>
 <script setup>
-import { getResponse, getHistory } from "../service/ApiRest.js"
-import { ref, getCurrentInstance, onMounted } from 'vue'
+import { getResponse } from "./service/ApiRest.js"
+import { ref, getCurrentInstance } from 'vue'
 
 var chatMessage = ref([]);
 
@@ -57,13 +56,6 @@ const sendMessage = () => {
     });
 }
 
-onMounted(() => {
-    getHistory().then( response => {
-      chatMessage.value.push(...response.data.response)
-      refresh()
-})
-})
-
 const search = (ele) => {
     if(event.key === 'Enter') {
         sendMessage();        
@@ -73,8 +65,6 @@ const search = (ele) => {
 const refresh = () =>
 {
     const instance = getCurrentInstance();
-    instance?.proxy?.$forceUpdate()
-    var el = document.getElementById("lastEl");
-    el.scrollIntoView({behavior: "smooth", block: "end"});
+    instance?.proxy?.$forceUpdate();
 }
 </script>

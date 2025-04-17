@@ -5,23 +5,119 @@ const https = require('https');
 const axios = require('axios');
 const pgp = require('pg-promise')({schema: "public"})
 const db = pgp('postgresql://postgres.izbedfpdwagbszmfxbtt:JLkKS_Nq4HM$s_q@aws-0-eu-central-1.pooler.supabase.com:5432/postgres')
-var session = require('express-session')
+const cookieParser = require('cookie-parser');
+const session = require('express-session');
+
+//postgresql://postgres.izbedfpdwagbszmfxbtt:JLkKS_Nq4HM$s_q@aws-0-eu-central-1.pooler.supabase.com:5432/postgres
 
 const app = express();
 const port = 5000;
 
+app.use(cookieParser());
 
-let books = [];
+app.use(cors({
+    origin: [
+        'http://localhost:5173',
+        'https://localhost:5173'
+      ],
+    credentials: true,
+    exposedHeaders: ['set-cookie']
+}
+));
 
-app.use(cors());
+app.use(session({
+    secret: 'AB8NEvSS9qOgkTDgxcnPMNzEB5ujjV3J',
+    cookie: {
+      maxAge: 6000000,
+      secure: false
+    },
+    saveUninitialized: true,
+    resave: false,
+    unset: 'destroy'
+  }));
+  
 
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-app.use(session({ secret: 'hbfdhijsokwkdmnbeujevjbsismdowkdwok', cookie: { maxAge: 60000 }}))
+
+app.post('/registrazione', async (req, res) => {
+
+    var checkUtenti = await db.manyOrNone("SELECT * FROM public.utenti WHERE email = $<email>",{
+        email: req.body.email
+    })
+
+    if(checkUtenti.length != 0)
+    {
+        return res.status(403).send("Email già presente a sistema");
+    }
+
+    checkUtenti = await db.manyOrNone("SELECT * FROM public.utenti WHERE username = $<username>",{
+        username: req.body.username
+    })
+
+    if(checkUtenti.length != 0)
+    {
+        return res.status(403).send("Username già presente a sistema");
+    }
+
+    var utente = {
+        nome:req.body.nome,
+        cognome: req.body.cognome,
+        username: req.body.username,
+        dataNascita: req.body.dataNascita,
+        email: req.body.email,
+        password: req.body.password,
+        tipoUtente: "US"
+    }
+
+    db.none("INSERT INTO public.utenti(email, nome, cognome, data_nascita, username, password, tipo_utente)VALUES($<email>, $<nome>, $<cognome>, $<dataNascita>, $<username>, $<password>, $<tipoUtente>);", utente)
+
+    req.session.utente = utente;
+
+    console.log(req.session.utente)
+    res.status(200).send(utente.username)
+})
+
+app.get('/checkSession', async (req, res) => {
+console.log(req.session.utente)
+
+    if(req.session.utente != undefined)
+    {
+        return res.send(req.session.utente.username)
+    }
+    else
+    {
+        return res.send("")
+    }
+})
+
+app.post('/login', async (req, res) => {
+
+    var checkUtenti = await db.manyOrNone("SELECT * FROM public.utenti WHERE email = $<email>",{
+        email: req.body.email
+    })
+
+    if(checkUtenti.length == 0)
+    {
+        return res.status(403).send("Utente inesistente");
+    }
+    else
+    {
+        if(checkUtenti[0].password != req.body.password)
+        {
+            return res.status(403).send("Password errata");
+        }
+        else
+        {
+            req.session.utente = checkUtenti[0];
+            return res.status(200).send(checkUtenti[0].username);
+        }
+    }
+})
 
 app.post('/chatbot/message', async (req, res) => {
-    console.log(req.body)
+
 
     var chatHistory = await db.manyOrNone("SELECT * FROM public.messaggi WHERE email_utente = $<email> ORDER BY timestamp",{
         email: "mock@mock.it"
@@ -33,8 +129,6 @@ app.post('/chatbot/message', async (req, res) => {
     })
 
     oldChat = [];
-
-    console.log(chatHistory)
 
     chatHistory.forEach(element => {
         oldChat.push({
@@ -59,65 +153,11 @@ app.post('/chatbot/message', async (req, res) => {
             email: "mock@mock.it",
             messaggio: response.data.candidates[0].content.parts[0].text
         })
+        /*
+        req.session.user = "NUOVO UTENTE";
+        */
         res.send({response: response.data.candidates[0].content.parts[0].text});
     })
-});
-
-app.get('/chatbot/getHistory', async (req, res) => {
-    var chatHistory = await db.manyOrNone("SELECT * FROM public.messaggi WHERE email_utente = $<email> ORDER BY timestamp",{
-        email: "mock@mock.it"
-    })
-
-    var result = [];
-
-    chatHistory.forEach(element => {
-        result.push({
-            sender: element.tipo_mittente,
-            message:element.testo
-            })
-        });
-    
-        res.send({response: result})
-})
-
-app.post('/login', async (req, res) => {
-    var user = await db.oneOrNone("SELECT * FROM utenti WHERE email = $<email>",{
-        email: req.body.email
-    })
-
-    //console.log(...user);
-    console.log(req.body)
-
-    if(user != null && user.password == req.body.password)
-    {
-        req.session.user=user
-        user.password=null;
-        res.send(user);
-    }
-    else
-    {
-        res.status(403).send({error:"email o password errati"})
-    }
-});
-
-app.post('/signup', async (req, res) => {
-    var user = await db.oneOrNone("SELECT * FROM utenti WHERE email = $<email>",{
-        email: req.body.email
-    })
-
-    console.log(req.body)
-
-    if(user != null)
-    {
-        res.status(403).send({error:"Email già utilizzata"})
-    }
-    else
-    {
-        await db.none("INSERT INTO public.utenti(email, nome, cognome, data_nascita, username, password, tipo_utente)"+
-                "VALUES($<email>, $<nome>, $<cognome>, $<dataNascita>, $<username>, $<password>, $<ruolo>);", req.body)
-        req.body.password = null;
-        res.send(req.body);
-    }
 });
 
 app.listen(port, () => console.log(`Fie-co app listening on port ${port}!`));
