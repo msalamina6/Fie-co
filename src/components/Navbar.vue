@@ -26,7 +26,8 @@ const triggerLogin = () =>
 onBeforeMount(() => {
   checkUserSession().then(data => {
     store.setUsername(data.data)  
-
+    console.log(data)
+    console.log(store.getUsername)
     if(store.getUsername != "")
     {
         logged()

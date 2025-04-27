@@ -24,6 +24,26 @@ export function login(dati)
     return axios.post("http://localhost:5000/login", dati)
 }
 
+export function getArticoli()
+{
+    return axios.get("http://localhost:5000/getArt")
+}
+
+export function getArtRecenti()
+{
+    return axios.get("http://localhost:5000/getArtRecenti")
+}
+
+export function getArtPrincipali()
+{
+    return axios.get("http://localhost:5000/getArtPrincipali")
+}
+
+export function getArticolo(articolo)
+{
+    return axios.get("http://localhost:5000/getArticolo", {params:{articolo: articolo}})
+}
+
 export async function getHashFromTest(message)
 {
     const encoder = new TextEncoder();

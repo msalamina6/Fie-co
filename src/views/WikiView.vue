@@ -13,23 +13,51 @@
   </button>
 </div>
 <div class="text-center p-4">
-RISULTATI DELLA RICERCA DA CICLARE
-<div class="grid grid-cols-3 gap-4">
-<p>result 1</p>
-<p>result 2</p>
-<p>result 3</p>
 </div>
-</div>
-  <div class="grid grid-cols-2 gap-4">
+  <div class="grid grid-cols-3 gap-4">
     <div class="bg-gray-200 p-4">
     <h2>Articoli Principali</h2>
+    <div v-for="el in articoliPrincipali">
+      <a :href="'/detail/'+el.articolo">{{el.titolo}}</a>
+    </div>
+  </div>
+  <div class="grid text-center grid-cols-3 gap-4">
+    <div v-for="el in articoli"><a :href="'/detail/'+el.articolo">{{el.titolo}}</a></div>
   </div>
   <div class="bg-gray-200 p-4">
   <h2>Articoli più recenti</h2>
+    <div v-for="el in articoliRecenti">
+      <a :href="'/detail/'+el.articolo">{{el.titolo}}</a>
+    </div>
   </div>
 </div>
 </template>
-<script>
+<script setup>
+import { ref, getCurrentInstance } from 'vue'
+import { useUserStore } from "@/stores/user"
+import { onMounted } from 'vue'
+import { getArticoli, getArtRecenti, getArtPrincipali } from '../components/service/ApiRest.js'
+
+let articoli = ref([]);
+let articoliRecenti = ref([]);
+let articoliPrincipali = ref([]);
+
+onMounted(() => {
+
+  getArticoli().then(data => {
+   articoli.value = data.data;
+  })
+
+  getArtPrincipali().then(data => {
+    articoliPrincipali.value = data.data;
+  })
+
+  getArtRecenti().then(data => {
+    articoliRecenti.value = data.data;
+  })
+  //articoli.value = 
+})
+
 
 </script>
 <style>

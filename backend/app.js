@@ -80,7 +80,7 @@ app.post('/registrazione', async (req, res) => {
 })
 
 app.get('/checkSession', async (req, res) => {
-console.log(req.session.utente)
+    console.log(req.session.utente)
 
     if(req.session.utente != undefined)
     {
@@ -91,6 +91,40 @@ console.log(req.session.utente)
         return res.send("")
     }
 })
+
+app.get('/getArt', async (req, res) => {
+        console.log(req.session.utente)
+    
+        var articoli = await db.manyOrNone("SELECT titolo, articolo FROM public.articolo");
+
+        res.send(articoli)
+    })
+
+app.get('/getArticolo', async (req, res) => {
+        console.log(req.query.articolo)
+    
+        var articolo = await db.manyOrNone("SELECT * FROM public.articolo where articolo = $<articolo>", {
+            articolo: req.query.articolo
+        });
+
+        res.send(articolo)
+    })
+
+app.get('/getArtRecenti', async (req, res) => {
+        console.log(req.session.utente)
+    
+        var articoli = await db.manyOrNone("SELECT titolo, articolo FROM public.articolo order by timestamp desc");
+
+        res.send(articoli)
+    })
+
+app.get('/getArtPrincipali', async (req, res) => {
+        console.log(req.session.utente)
+    
+        var articoli = await db.manyOrNone("SELECT titolo, articolo FROM public.articolo where evidenza = true");
+
+        res.send(articoli)
+    })
 
 app.post('/login', async (req, res) => {
 
