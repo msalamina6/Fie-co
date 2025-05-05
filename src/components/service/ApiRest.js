@@ -14,6 +14,16 @@ export function registrazione(dati)
     return axios.post("http://localhost:5000/registrazione", dati)
 }
 
+export function getDatiUtente(username)
+{ 
+    return axios.get("http://localhost:5000/getDatiUtente", {params:{username: username}})
+}
+
+export function modifica(dati)
+{
+    return axios.post("http://localhost:5000/modifica", dati)
+}
+
 export function checkUserSession()
 {
     return axios.get("http://localhost:5000/checkSession")

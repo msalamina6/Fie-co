@@ -28,7 +28,7 @@ onBeforeMount(() => {
     store.setUsername(data.data)  
     console.log(data)
     console.log(store.getUsername)
-    if(store.getUsername != "")
+    if(data.data != "" && data.data != undefined)
     {
         logged()
     }
@@ -61,20 +61,20 @@ const logged = () =>
                 <a href="#" class="text-2xl font-bold text-white tracking-wide">Fie-co</a>
                 </div>
                 <ul class="flex space-x-6">
-                <li><a href="#" class="nav-link">Home</a></li>
+                <li><a href="/" class="nav-link">Home</a></li>
                 <li><a href="/wiki" class="nav-link">Wiki</a></li>
                 <li><a href="qa.html" class="nav-link">Q&A</a></li>
                 <li><a href="iot.html" class="nav-link">Monitoraggio Dati</a></li>
                 <li><button v-show="isLogged == false" class="nav-link" @click="triggerLogin()">Login</button></li>
                 <li><button v-show="isLogged == false" class="nav-link" @click="triggerReg()">Registrati</button></li>
                 <li>
-                    <button class="nav-link" v-show="isLogged == true">
+                    <a href="/profile" class="nav-link" v-show="isLogged == true">
                         <svg class="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" stroke-width="2"
                             viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                             <path stroke-linecap="round" stroke-linejoin="round"
                                 d="M5.121 17.804A9 9 0 0112 15a9 9 0 016.879 2.804M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
                         </svg>
-                    </button>
+                    </a>
                 </li>
                 </ul>
             </div>

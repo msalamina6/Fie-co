@@ -43,6 +43,8 @@ app.use(bodyParser.json());
 
 app.post('/registrazione', async (req, res) => {
 
+    console.log(req);
+
     var checkUtenti = await db.manyOrNone("SELECT * FROM public.utenti WHERE email = $<email>",{
         email: req.body.email
     })
@@ -71,12 +73,64 @@ app.post('/registrazione', async (req, res) => {
         tipoUtente: "US"
     }
 
-    db.none("INSERT INTO public.utenti(email, nome, cognome, data_nascita, username, password, tipo_utente)VALUES($<email>, $<nome>, $<cognome>, $<dataNascita>, $<username>, $<password>, $<tipoUtente>);", utente)
+    await db.none("INSERT INTO public.utenti(email, nome, cognome, data_nascita, username, password, tipo_utente)VALUES($<email>, $<nome>, $<cognome>, $<dataNascita>, $<username>, $<password>, $<tipoUtente>);", utente)
 
     req.session.utente = utente;
 
     console.log(req.session.utente)
     res.status(200).send(utente.username)
+})
+
+app.post('/modifica', async (req, res) => {
+
+    console.log(req);
+
+    var checkUtenti = await db.manyOrNone("SELECT * FROM public.utenti WHERE username = $<username> AND email != $<email>",{
+        username: req.body.username,
+        email: req.body.email
+    })
+
+    if(checkUtenti.length != 0)
+    {
+        return res.status(403).send("Username già presente a sistema");
+    }
+
+    var utente = {
+        nome:req.body.nome,
+        cognome: req.body.cognome,
+        username: req.body.username,
+        dataNascita: req.body.dataNascita,
+        email: req.body.email,
+    }
+
+    await db.none("UPDATE public.utenti SET nome = $<nome>, cognome = $<cognome>, data_nascita = $<dataNascita>, username = $<username> WHERE email = $<email>", utente)
+    
+    if(req.body.password != null)
+    {
+        await db.none("UPDATE public.utenti SET password = $<password >WHERE email = $<email>", {email: req.body.email, password:req.body.password})
+    }
+
+    req.session.utente = utente;
+
+    console.log(req.session.utente)
+    res.status(200).send(utente.username)
+})
+
+app.get('/getDatiUtente', async (req, res) => {
+
+    var checkUtenti = await db.manyOrNone("SELECT * FROM public.utenti WHERE username = $<username>",{
+        username: req.query.username
+    })
+
+    if(checkUtenti.length == 0)
+    {
+        return res.status(403).send("Utente inesistente");
+    }
+    else
+    {
+        req.session.utente = checkUtenti[0];
+        return res.status(200).send(checkUtenti[0]);
+    }
 })
 
 app.get('/checkSession', async (req, res) => {

@@ -60,13 +60,13 @@ var email = ref('');
 var password = ref('');
 var confPassword = ref('');
 const store = useUserStore();
+const emit = defineEmits(['logged'])
 
 const registrazioneComp = () => {
     const regExNome = new RegExp("^[A-ZÀ-Ýa-zà-ÿ]+(?:[\s'\-][A-ZÀ-Ýa-zà-ÿ]+)*$")
     const regExUser = new RegExp("^[a-zA-Z0-9._-]{3,20}$")
     const regExEmail = new RegExp("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$")
     const regExPass = new RegExp("^(?=.*\\d)(?=.*[a-zA-Z])(?=.*\\W).{8,}$")
-    const emit = defineEmits(['logged'])
 
     var execute = true;
 
@@ -120,12 +120,16 @@ const registrazioneComp = () => {
             password: data
             }
 
+            console.log(data)
+
             registrazione(body).then(data => {
-                store.setUsername(res.data)
+                console.log(data)
+                store.setUsername(data.data)
                 emit('logged')
             })
             .catch( data => {
-                alert(data.response.data)
+              console.log(data)
+                alert(data)
             })
         })
     }
