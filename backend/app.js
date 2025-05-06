@@ -116,6 +116,27 @@ app.post('/modifica', async (req, res) => {
     res.status(200).send(utente.username)
 })
 
+app.post('/eliminaUtente', async (req, res) => {
+
+    console.log(req);
+
+    var checkUtenti = await db.manyOrNone("SELECT * FROM public.utenti WHERE username = $<username>",{
+        username: req.body.username,
+    })
+
+    if(checkUtenti.length == 0)
+    {
+        return res.status(403).send("Username non presente a sistema");
+    }
+
+    await db.none("DELETE FROM public.utenti WHERE email = $<email>", {email:checkUtenti[0].email}).then(() => {
+        req.session.utente = undefined;
+        res.status(200).send("utente cancellato");
+    }).catch(() => {
+        res.status(500).send("Errore eliminazione")
+    })
+})
+
 app.get('/getDatiUtente', async (req, res) => {
 
     var checkUtenti = await db.manyOrNone("SELECT * FROM public.utenti WHERE username = $<username>",{

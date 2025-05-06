@@ -38,16 +38,17 @@
       <button class="w-full bg-blue-600 text-white py-2 px-4 rounded-xl hover:bg-blue-700 transition" @click="modificaProf()">
         Salva Profilo
       </button>
-      <button class="w-full bg-red-600 text-white py-2 px-4 rounded-xl hover:bg-red-700 transition">
+      <button class="w-full bg-red-600 text-white py-2 px-4 rounded-xl hover:bg-red-700 transition" @click="eliminaProf()">
         Elimina profilo
       </button>
     </div>
 </div>
 </template>
 <script setup>
-import {ref, onBeforeMount} from 'vue'
-import { getHashFromTest, modifica, getDatiUtente } from "../components/service/ApiRest.js"
+import {ref, onBeforeMount, getCurrentInstance} from 'vue'
+import { getHashFromTest, modifica, getDatiUtente, eliminaUtente} from "../components/service/ApiRest.js"
 import { useUserStore } from "@/stores/user"
+import { useRouter } from 'vue-router'
 
 const store = useUserStore();
 var nome = ref('');
@@ -56,6 +57,7 @@ var username = ref('');
 var dataNascita = ref('');
 var email = ref('');
 var password = ref('');
+const router = useRouter()
 
 onBeforeMount(() => {
   getDatiUtente(store.getUsername).then(data => {
@@ -169,6 +171,19 @@ const modificaProf = () => {
         
     }
 
+}
+
+const eliminaProf = () => {
+    if(confirm("Sicuro di voler elimninare il tuo profilo? una volta eliminato i dati sono persi in modo permanente!"))
+    {
+        eliminaUtente(store.getUsername).then(() => {
+            store.setUsername(undefined)
+            alert("Profilo eliminato con successo");
+            router.push("/")
+    }).catch(data => {
+        alert(data)
+    })
+    }
 }
 
 </script>

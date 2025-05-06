@@ -2,7 +2,7 @@
 import logo from '../assets/plant-icon.png';
 import Login from './Login.vue';
 import Registrazione from './Registrazione.vue';
-import { ref, getCurrentInstance } from 'vue'
+import { ref, getCurrentInstance, watch } from 'vue'
 import { useUserStore } from "@/stores/user"
 import { onBeforeMount } from 'vue'
 import { checkUserSession } from "./service/ApiRest.js"
@@ -35,6 +35,18 @@ onBeforeMount(() => {
   });
 })
 
+const refresh = () => {
+    checkUserSession().then(data => {
+    store.setUsername(data.data)  
+    console.log(data)
+    console.log(store.getUsername)
+    if(data.data != "" && data.data != undefined)
+    {
+        logged()
+    }
+  });
+}
+
 const triggerReg = () => 
 {
     console.log("hello")
@@ -54,7 +66,7 @@ const logged = () =>
 </script>
 
 <template>
-    <nav class="bg-gradient-to-r from-green-700 to-green-500 p-4 shadow-md topbar_custom" >
+    <nav class="bg-gradient-to-r from-green-700 to-green-500 p-4 shadow-md topbar_custom" :key="$route.fullPath">
             <div class="container mx-auto flex justify-between items-center">
                 <div class="flex items-center space-x-3">
                 <img :src="logo" alt="Logo Piantina" class="w-10 h-10" />

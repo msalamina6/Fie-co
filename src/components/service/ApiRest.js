@@ -19,6 +19,12 @@ export function getDatiUtente(username)
     return axios.get("http://localhost:5000/getDatiUtente", {params:{username: username}})
 }
 
+export function eliminaUtente(username)
+{ 
+    return axios.post("http://localhost:5000/eliminaUtente", {username: username})
+}
+
+
 export function modifica(dati)
 {
     return axios.post("http://localhost:5000/modifica", dati)

@@ -129,7 +129,7 @@ const registrazioneComp = () => {
             })
             .catch( data => {
               console.log(data)
-                alert(data)
+                alert(data.message)
             })
         })
     }
