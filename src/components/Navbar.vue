@@ -35,7 +35,7 @@ onBeforeMount(() => {
   });
 })
 
-const refresh = () => {
+const checkSession = () => {
     checkUserSession().then(data => {
     store.setUsername(data.data)  
     console.log(data)
@@ -44,7 +44,17 @@ const refresh = () => {
     {
         logged()
     }
+    else
+    {
+        notLogged()
+    }
   });
+}
+
+const notLogged = () => {
+    loginVisible.value = false;
+    regVisible.value = false;
+    isLogged.value = false;
 }
 
 const triggerReg = () => 
@@ -63,6 +73,10 @@ const logged = () =>
     regVisible.value = false;
     isLogged.value = true;
 }
+
+defineExpose({
+  checkSession
+});
 </script>
 
 <template>

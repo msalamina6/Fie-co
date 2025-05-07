@@ -177,9 +177,10 @@ const eliminaProf = () => {
     if(confirm("Sicuro di voler elimninare il tuo profilo? una volta eliminato i dati sono persi in modo permanente!"))
     {
         eliminaUtente(store.getUsername).then(() => {
-            store.setUsername(undefined)
-            alert("Profilo eliminato con successo");
-            router.push("/")
+            store.eliminazioneUtente().then(() => {
+                alert("Profilo eliminato con successo");
+                router.push("/")
+            })
     }).catch(data => {
         alert(data)
     })

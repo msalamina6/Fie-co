@@ -41,6 +41,11 @@ app.use(session({
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
+app.use((err, req, res, next) => {
+    console.error(err.stack)
+    res.status(500).send('Errore server')
+})
+
 app.post('/registrazione', async (req, res) => {
 
     console.log(req);

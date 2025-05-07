@@ -1,9 +1,18 @@
 <script setup>
-import { RouterLink, RouterView } from 'vue-router'
-import {getCurrentInstance} from 'vue'
+import { RouterLink, RouterView, useRoute } from 'vue-router'
+import {getCurrentInstance, useTemplateRef, onMounted, watch} from 'vue'
 import Navbar from './components/Navbar.vue'
 import Footer from './components/Footer.vue'
 import Chat from './components/Chat.vue'
+
+const childRef = useTemplateRef('navbar')
+
+const route = useRoute()
+
+watch(() => route.fullPath,() => {
+    childRef.value?.checkSession()
+  }
+)
 
 
 </script>

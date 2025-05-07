@@ -12,13 +12,12 @@ import router from './router'
 import './assets/index.css'
 
 const app = createApp(App)
-app.use(createPinia())
+const pinia = createPinia();
+app.use(pinia)
 
 axios.defaults.withCredentials = true;
 
 const user = useUserStore()
-
-watch(user.username, username => {console.log(state);localStorage.setItem("username", username());}, {deep: true})
 
 app.use(router)
 

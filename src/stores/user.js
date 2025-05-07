@@ -1,5 +1,8 @@
 import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
 
 export const useUserStore = defineStore('user', () => {
   const username = () => {
@@ -13,8 +16,16 @@ export const useUserStore = defineStore('user', () => {
     }
   const getUsername = computed(() => username.value)
   function setUsername(data) {
-    username.value = data
+    return username.value = data
   }
 
-  return { username, getUsername, setUsername }
+  function eliminazioneUtente()
+  {
+    return new Promise(function(resolve, reject) {
+      username.value = ""
+      resolve()
+    })
+  }
+
+  return { username, getUsername, setUsername, eliminazioneUtente }
 })
