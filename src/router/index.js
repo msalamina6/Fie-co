@@ -1,5 +1,7 @@
-import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
+import { createRouter, createWebHistory } from 'vue-router';
+import HomeView from '../views/HomeView.vue';
+import TeamView from '@/views/TeamView.vue';
+import ContactView from '@/views/ContactView.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -12,36 +14,34 @@ const router = createRouter({
     {
       path: '/about',
       name: 'about',
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
       component: () => import('../views/AboutView.vue'),
     },
     {
       path: '/wiki',
       name: 'wiki',
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
       component: () => import('../views/WikiView.vue'),
     },
     {
       path: '/profile',
       name: 'profile',
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
       component: () => import('../views/ProfileView.vue'),
     },
     {
       path: '/detail/:articolo',
       name: 'detail',
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
       component: () => import('../views/DetailView.vue'),
     },
+    {
+      path: '/team',
+      name: 'Team',
+      component: TeamView, // Aggiunto percorso per "Il nostro team"
+    },
+    {
+      path: '/contact',
+      name: 'Contact',
+      component: ContactView, // Aggiunto percorso per "Contattaci"
+    },
   ],
-})
+});
 
-export default router
+export default router;
