@@ -1,84 +1,78 @@
 <template>
-  <div class="max-w-7xl mx-auto px-6 py-12 bg-green-100">
-    <h1 class="text-4xl font-extrabold text-center text-green-900 mb-10 tracking-tight">
-      🌿 FIE-CO <span class="text-lime-500">WIKI</span>
-    </h1>
+  <div class="min-h-screen bg-green-50 py-12">
+    <div class="max-w-7xl mx-auto px-6">
 
-    <!-- Barra di ricerca -->
-    <div class="flex items-center w-full max-w-xl mx-auto mb-12 border border-lime-300 bg-white/60 backdrop-blur-md rounded-xl px-4 py-3 shadow-md focus-within:ring-2 focus-within:ring-lime-400 transition">
-      <input 
-        type="text" 
-        placeholder="Cerca un articolo..." 
-        class="w-full bg-transparent outline-none text-gray-800 placeholder-gray-500"
-      >
-      <button class="ml-3 text-lime-600 hover:text-lime-800 transition text-xl">
-        🔍
-      </button>
-    </div>
+      <!-- Titolo -->
+      <h1 class="text-4xl font-extrabold text-center text-green-900 mb-8 tracking-tight">
+        🌿 FIE-CO <span class="text-lime-500">WIKI</span>
+      </h1>
 
-    <!-- Sezioni -->
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-      
-      <!-- Articoli Principali -->
-      <div class="bg-white/70 rounded-2xl p-6 shadow-lg border border-lime-100 backdrop-blur">
-        <h2 class="text-xl font-bold text-green-800 mb-4 border-b border-lime-300 pb-2">🌟 Articoli Principali</h2>
-        <div class="space-y-3">
-          <div 
-            v-for="el in articoliPrincipali" 
-            :key="el.articolo"
-          >
-            <a 
-              :href="'/detail/' + el.articolo" 
-              class="block text-lime-700 hover:text-lime-900 font-medium transition duration-200"
-            >
-              {{ el.titolo }}
-            </a>
-          </div>
-        </div>
+      <!-- Barra di ricerca -->
+      <div class="flex items-center w-full max-w-xl mx-auto mb-12 border border-lime-300 bg-white/60 backdrop-blur-md rounded-xl px-4 py-3 shadow-md focus-within:ring-2 focus-within:ring-lime-400 transition">
+        <input 
+          type="text" 
+          placeholder="Cerca..." 
+          class="w-full bg-transparent outline-none text-gray-800 placeholder-gray-500"
+        >
+        <button class="ml-3 text-lime-600 hover:text-lime-800 transition text-xl">
+          🔍
+        </button>
       </div>
 
-      <!-- Tutti gli Articoli -->
-      <div class="bg-white/70 rounded-2xl p-6 shadow-lg border border-gray-200 backdrop-blur">
-        <h2 class="text-xl font-bold text-green-800 mb-4 border-b border-gray-300 pb-2">📄 Tutti gli Articoli</h2>
-        <div class="grid grid-cols-1 gap-3">
-          <div 
-            v-for="el in articoli" 
-            :key="el.articolo"
-          >
-            <a 
-              :href="'/detail/' + el.articolo" 
-              class="block text-gray-700 hover:text-gray-900 transition font-medium"
+      <!-- Sezioni -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+
+        <!-- Articoli Principali -->
+        <div class="bg-white/70 rounded-2xl p-6 shadow-lg border border-lime-100 backdrop-blur">
+          <h2 class="text-2xl font-bold text-green-800 mb-4 border-b border-lime-300 pb-2">🌟 Articoli Principali</h2>
+          <div class="space-y-3">
+            <div 
+              v-for="el in articoliPrincipali" 
+              :key="el.articolo"
+              class="text-lg font-medium text-lime-700 hover:text-lime-900 transition duration-200"
             >
-              {{ el.titolo }}
-            </a>
+              <a :href="'/detail/' + el.articolo">{{ el.titolo }}</a>
+            </div>
           </div>
         </div>
-      </div>
 
-      <!-- Articoli Recenti -->
-      <div class="bg-white/70 rounded-2xl p-6 shadow-lg border border-lime-100 backdrop-blur">
-        <h2 class="text-xl font-bold text-green-800 mb-4 border-b border-lime-300 pb-2">🕒 Più Recenti</h2>
-        <div class="space-y-3">
-          <div 
-            v-for="el in articoliRecenti" 
-            :key="el.articolo"
-          >
-            <a 
-              :href="'/detail/' + el.articolo" 
-              class="block text-lime-700 hover:text-lime-900 transition font-medium"
+        <!-- Tutti gli Articoli -->
+        <div class="bg-white/70 rounded-2xl p-6 shadow-lg border border-gray-200 backdrop-blur">
+          <h2 class="text-2xl font-bold text-green-800 mb-4 border-b border-gray-300 pb-2">📄 Tutti gli Articoli</h2>
+          <div class="space-y-3">
+            <div 
+              v-for="el in articoli" 
+              :key="el.articolo"
+              class="text-lg font-medium text-gray-700 hover:text-gray-900 transition duration-200"
             >
-              {{ el.titolo }}
-            </a>
+              <a :href="'/detail/' + el.articolo">{{ el.titolo }}</a>
+            </div>
           </div>
         </div>
-      </div>
 
+        <!-- Articoli Recenti -->
+        <div class="bg-white/70 rounded-2xl p-6 shadow-lg border border-lime-100 backdrop-blur">
+          <h2 class="text-2xl font-bold text-green-800 mb-4 border-b border-lime-300 pb-2">🕒 Più Recenti</h2>
+          <div class="space-y-3">
+            <div 
+              v-for="el in articoliRecenti" 
+              :key="el.articolo"
+              class="text-lg font-medium text-lime-700 hover:text-lime-900 transition duration-200"
+            >
+              <a :href="'/detail/' + el.articolo">{{ el.titolo }}</a>
+            </div>
+          </div>
+        </div>
+
+      </div>
     </div>
   </div>
 </template>
 
-<script setup>
-import { ref, onMounted } from 'vue'
+<script setup> 
+import { ref, getCurrentInstance } from 'vue'
+import { useUserStore } from "@/stores/user"
+import { onMounted } from 'vue'
 import { getArticoli, getArtRecenti, getArtPrincipali } from '../components/service/ApiRest.js'
 
 let articoli = ref([]);
@@ -100,3 +94,6 @@ onMounted(() => {
 })
 </script>
 
+<style>
+/* Aggiungi qui eventuali stili personalizzati se necessario */
+</style>
