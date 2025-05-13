@@ -21,5 +21,14 @@
     </div>
   </header>
 </template>
+<script setup>
+import { RouterLink } from 'vue-router'
+import { onMounted } from 'vue'
+import { useUserStore } from '@/stores/user.js'
+
+const userStore = useUserStore();
+</script>
+
+
 
 
