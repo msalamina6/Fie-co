@@ -11,13 +11,7 @@
       <p class="text-lg sm:text-xl mb-10 max-w-2xl text-white/90 drop-shadow-md">
         La piattaforma perfetta per supportare gli agricoltori con strumenti avanzati.
       </p>
-      <RouterLink to="/loginup">
-        <button
-          class="bg-gradient-to-r from-lime-500 to-green-600 hover:from-lime-600 hover:to-green-700 text-white px-10 py-3 rounded-full shadow-xl font-semibold transition duration-300 transform hover:scale-110 focus:outline-none focus:ring-4 focus:ring-lime-300"
-        >
-          Accedi o registrati
-        </button>
-      </RouterLink>
+      <!-- Pulsante rimosso -->
     </div>
   </header>
 </template>
