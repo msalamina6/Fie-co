@@ -1,38 +1,75 @@
 <template>
-<h1 class="text-3xl font-bold text-center text-gray-800">FIE-CO WIKI</h1>
-<div class="flex items-center border border-gray-300 rounded-lg px-3 py-2 shadow-sm focus-within:ring-2 focus-within:ring-blue-500 transition">
-  <input 
-    type="text" 
-    placeholder="Cerca..." 
-    class="w-full bg-transparent outline-none text-gray-800 placeholder-gray-400"
-  >
-  <button 
-    class="ml-2 text-blue-500 hover:text-blue-600 transition"
-  >
-    🔍
-  </button>
-</div>
-<div class="text-center p-4">
-</div>
-  <div class="grid grid-cols-3 gap-4">
-    <div class="bg-gray-200 p-4">
-    <h2>Articoli Principali</h2>
-    <div v-for="el in articoliPrincipali">
-      <a :href="'/detail/'+el.articolo">{{el.titolo}}</a>
+  <div class="min-h-screen bg-green-50 py-12">
+    <div class="max-w-7xl mx-auto px-6">
+
+      <!-- Titolo -->
+      <h1 class="text-4xl font-extrabold text-center text-green-900 mb-8 tracking-tight">
+        🌿 FIE-CO <span class="text-lime-500">WIKI</span>
+      </h1>
+
+      <!-- Barra di ricerca -->
+      <div class="flex items-center w-full max-w-xl mx-auto mb-12 border border-lime-300 bg-white/60 backdrop-blur-md rounded-xl px-4 py-3 shadow-md focus-within:ring-2 focus-within:ring-lime-400 transition">
+        <input 
+          type="text" 
+          placeholder="Cerca..." 
+          class="w-full bg-transparent outline-none text-gray-800 placeholder-gray-500"
+        >
+        <button class="ml-3 text-lime-600 hover:text-lime-800 transition text-xl">
+          🔍
+        </button>
+      </div>
+
+      <!-- Sezioni -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+
+        <!-- Articoli Principali -->
+        <div class="bg-white/70 rounded-2xl p-6 shadow-lg border border-lime-100 backdrop-blur">
+          <h2 class="text-2xl font-bold text-green-800 mb-4 border-b border-lime-300 pb-2">🌟 Articoli Principali</h2>
+          <div class="space-y-3">
+            <div 
+              v-for="el in articoliPrincipali" 
+              :key="el.articolo"
+              class="text-lg font-medium text-lime-700 hover:text-lime-900 transition duration-200"
+            >
+              <a :href="'/detail/' + el.articolo">{{ el.titolo }}</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tutti gli Articoli -->
+        <div class="bg-white/70 rounded-2xl p-6 shadow-lg border border-gray-200 backdrop-blur">
+          <h2 class="text-2xl font-bold text-green-800 mb-4 border-b border-gray-300 pb-2">📄 Tutti gli Articoli</h2>
+          <div class="space-y-3">
+            <div 
+              v-for="el in articoli" 
+              :key="el.articolo"
+              class="text-lg font-medium text-gray-700 hover:text-gray-900 transition duration-200"
+            >
+              <a :href="'/detail/' + el.articolo">{{ el.titolo }}</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Articoli Recenti -->
+        <div class="bg-white/70 rounded-2xl p-6 shadow-lg border border-lime-100 backdrop-blur">
+          <h2 class="text-2xl font-bold text-green-800 mb-4 border-b border-lime-300 pb-2">🕒 Più Recenti</h2>
+          <div class="space-y-3">
+            <div 
+              v-for="el in articoliRecenti" 
+              :key="el.articolo"
+              class="text-lg font-medium text-lime-700 hover:text-lime-900 transition duration-200"
+            >
+              <a :href="'/detail/' + el.articolo">{{ el.titolo }}</a>
+            </div>
+          </div>
+        </div>
+
+      </div>
     </div>
   </div>
-  <div class="grid text-center grid-cols-3 gap-4">
-    <div v-for="el in articoli"><a :href="'/detail/'+el.articolo">{{el.titolo}}</a></div>
-  </div>
-  <div class="bg-gray-200 p-4">
-  <h2>Articoli più recenti</h2>
-    <div v-for="el in articoliRecenti">
-      <a :href="'/detail/'+el.articolo">{{el.titolo}}</a>
-    </div>
-  </div>
-</div>
 </template>
-<script setup>
+
+<script setup> 
 import { ref, getCurrentInstance } from 'vue'
 import { useUserStore } from "@/stores/user"
 import { onMounted } from 'vue'
@@ -43,9 +80,8 @@ let articoliRecenti = ref([]);
 let articoliPrincipali = ref([]);
 
 onMounted(() => {
-
   getArticoli().then(data => {
-   articoli.value = data.data;
+    articoli.value = data.data;
   })
 
   getArtPrincipali().then(data => {
@@ -55,10 +91,9 @@ onMounted(() => {
   getArtRecenti().then(data => {
     articoliRecenti.value = data.data;
   })
-  //articoli.value = 
 })
-
-
 </script>
+
 <style>
+/* Aggiungi qui eventuali stili personalizzati se necessario */
 </style>
