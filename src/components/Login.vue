@@ -40,14 +40,14 @@ import { getHashFromTest , login} from "./service/ApiRest.js"
 import {ref} from 'vue'
 import { useUserStore } from "@/stores/user"
 
-var email = ref('');
-var password = ref('');
+const email = ref('');
+const password = ref('');
 const store = useUserStore();
 const emit = defineEmits(['logged'])
 
 const loginComp = () => {
   getHashFromTest(password.value).then(data => {
-    var body = {
+    const body = {
       email: email.value,
       password: data
     }

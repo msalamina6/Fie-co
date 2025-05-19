@@ -109,18 +109,18 @@
 
 
 <script setup>
-import { ref, onBeforeMount, getCurrentInstance } from 'vue'
+import { ref, onBeforeMount } from 'vue'
 import { getHashFromTest, modifica, getDatiUtente, eliminaUtente } from "../components/service/ApiRest.js"
 import { useUserStore } from "@/stores/user"
 import { useRouter } from 'vue-router'
 
 const store = useUserStore();
-var nome = ref('');
-var cognome = ref('');
-var username = ref('');
-var dataNascita = ref('');
-var email = ref('');
-var password = ref('');
+const nome = ref('');
+const cognome = ref('');
+const username = ref('');
+const dataNascita = ref('');
+const email = ref('');
+const password = ref('');
 const successMessage = ref('');
 const router = useRouter()
 
@@ -144,7 +144,7 @@ const modificaProf = () => {
 
   console.log("MODIFICA")
 
-  var execute = true;
+  let execute = true;
 
   if (!regExNome.test(nome.value)) {
     alert("Nome non valido");
@@ -161,7 +161,7 @@ const modificaProf = () => {
     execute = false;
   }
 
-  var dataNascitaDate = new Date(dataNascita.value)
+  const dataNascitaDate = new Date(dataNascita.value)
 
   if (dataNascitaDate.getFullYear() < 1920 || dataNascitaDate.getFullYear() > (new Date().getFullYear() - 10)) {
     alert("Data non valida");
@@ -181,7 +181,7 @@ const modificaProf = () => {
   if (execute) {
     if (password.value != '') {
       getHashFromTest(password.value).then(data => {
-        var body = {
+        const body = {
           nome: nome.value,
           cognome: cognome.value,
           username: username.value,
@@ -198,7 +198,7 @@ const modificaProf = () => {
           })
       })
     } else {
-      var body = {
+      const body = {
         nome: nome.value,
         cognome: cognome.value,
         username: username.value,

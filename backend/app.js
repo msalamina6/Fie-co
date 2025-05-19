@@ -50,7 +50,7 @@ app.post('/registrazione', async (req, res) => {
 
     console.log(req);
 
-    var checkUtenti = await db.manyOrNone("SELECT * FROM public.utenti WHERE email = $<email>",{
+    let checkUtenti = await db.manyOrNone("SELECT * FROM public.utenti WHERE email = $<email>",{
         email: req.body.email
     })
 
@@ -68,7 +68,7 @@ app.post('/registrazione', async (req, res) => {
         return res.status(403).send("Username già presente a sistema");
     }
 
-    var utente = {
+    const utente = {
         nome:req.body.nome,
         cognome: req.body.cognome,
         username: req.body.username,
@@ -90,7 +90,7 @@ app.post('/modifica', async (req, res) => {
 
     console.log(req);
 
-    var checkUtenti = await db.manyOrNone("SELECT * FROM public.utenti WHERE username = $<username> AND email != $<email>",{
+    let checkUtenti = await db.manyOrNone("SELECT * FROM public.utenti WHERE username = $<username> AND email != $<email>",{
         username: req.body.username,
         email: req.body.email
     })
@@ -100,7 +100,7 @@ app.post('/modifica', async (req, res) => {
         return res.status(403).send("Username già presente a sistema");
     }
 
-    var utente = {
+    const utente = {
         nome:req.body.nome,
         cognome: req.body.cognome,
         username: req.body.username,
@@ -125,7 +125,7 @@ app.post('/eliminaUtente', async (req, res) => {
 
     console.log(req);
 
-    var checkUtenti = await db.manyOrNone("SELECT * FROM public.utenti WHERE username = $<username>",{
+    let checkUtenti = await db.manyOrNone("SELECT * FROM public.utenti WHERE username = $<username>",{
         username: req.body.username,
     })
 
@@ -144,7 +144,7 @@ app.post('/eliminaUtente', async (req, res) => {
 
 app.get('/getDatiUtente', async (req, res) => {
 
-    var checkUtenti = await db.manyOrNone("SELECT * FROM public.utenti WHERE username = $<username>",{
+    let checkUtenti = await db.manyOrNone("SELECT * FROM public.utenti WHERE username = $<username>",{
         username: req.query.username
     })
 
@@ -175,7 +175,7 @@ app.get('/checkSession', async (req, res) => {
 app.get('/getArt', async (req, res) => {
         console.log(req.session.utente)
     
-        var articoli = await db.manyOrNone("SELECT titolo, articolo FROM public.articolo");
+        const articoli = await db.manyOrNone("SELECT titolo, articolo FROM public.articolo");
 
         res.send(articoli)
     })
@@ -183,7 +183,7 @@ app.get('/getArt', async (req, res) => {
 app.get('/getArticolo', async (req, res) => {
         console.log(req.query.articolo)
     
-        var articolo = await db.manyOrNone("SELECT * FROM public.articolo where articolo = $<articolo>", {
+        const articolo = await db.manyOrNone("SELECT * FROM public.articolo where articolo = $<articolo>", {
             articolo: req.query.articolo
         });
 
@@ -193,7 +193,7 @@ app.get('/getArticolo', async (req, res) => {
 app.get('/getArtRecenti', async (req, res) => {
         console.log(req.session.utente)
     
-        var articoli = await db.manyOrNone("SELECT titolo, articolo FROM public.articolo order by timestamp desc");
+        const articoli = await db.manyOrNone("SELECT titolo, articolo FROM public.articolo order by timestamp desc");
 
         res.send(articoli)
     })
@@ -201,14 +201,14 @@ app.get('/getArtRecenti', async (req, res) => {
 app.get('/getArtPrincipali', async (req, res) => {
         console.log(req.session.utente)
     
-        var articoli = await db.manyOrNone("SELECT titolo, articolo FROM public.articolo where evidenza = true");
+        const articoli = await db.manyOrNone("SELECT titolo, articolo FROM public.articolo where evidenza = true");
 
         res.send(articoli)
     })
 
 app.post('/login', async (req, res) => {
 
-    var checkUtenti = await db.manyOrNone("SELECT * FROM public.utenti WHERE email = $<email>",{
+    let checkUtenti = await db.manyOrNone("SELECT * FROM public.utenti WHERE email = $<email>",{
         email: req.body.email
     })
 
@@ -233,7 +233,7 @@ app.post('/login', async (req, res) => {
 app.post('/chatbot/message', async (req, res) => {
 
 
-    var chatHistory = await db.manyOrNone("SELECT * FROM public.messaggi WHERE email_utente = $<email> ORDER BY timestamp",{
+    let chatHistory = await db.manyOrNone("SELECT * FROM public.messaggi WHERE email_utente = $<email> ORDER BY timestamp",{
         email: "mock@mock.it"
     })
 
@@ -242,7 +242,7 @@ app.post('/chatbot/message', async (req, res) => {
         messaggio: req.body.messaggio
     })
 
-    oldChat = [];
+    let oldChat = [];
 
     chatHistory.forEach(element => {
         oldChat.push({
@@ -253,7 +253,7 @@ app.post('/chatbot/message', async (req, res) => {
         })
     });
 
-    var body = {contents:[]};
+    const body = {contents:[]};
 
     body.contents.push(...oldChat, {
         role:"user",
