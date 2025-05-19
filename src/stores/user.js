@@ -16,7 +16,8 @@ export const useUserStore = defineStore('user', () => {
     }
   const getUsername = computed(() => username.value)
   function setUsername(data) {
-    return username.value = data
+     username.value = data
+     return data
   }
 
   function eliminazioneUtente()

@@ -2,7 +2,7 @@
 import logo from '../assets/plant-icon.png';
 import Login from './Login.vue';
 import Registrazione from './Registrazione.vue';
-import { ref, getCurrentInstance, watch } from 'vue'
+import { ref } from 'vue'
 import { useUserStore } from "@/stores/user"
 import { onBeforeMount } from 'vue'
 import { checkUserSession } from "./service/ApiRest.js"

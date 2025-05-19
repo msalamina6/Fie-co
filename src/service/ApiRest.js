@@ -1,12 +1,11 @@
  import axios from 'axios'
- import ToastPlugin from 'vue-toast-notification';
- import {useToast} from 'vue-toast-notification';
+
 
 const $toast = useToast();
 
  export function getResponse(message) {
     console.log(message)
-    var body = {
+    const body = {
         messaggio: message
      }
     return axios.post("http://localhost:5000/chatbot/message", body)
