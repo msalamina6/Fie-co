@@ -1,11 +1,11 @@
 import './assets/main.css'
 
-import { createApp, watch } from 'vue'
+
 import { createPinia } from 'pinia'
 import { useUserStore } from './stores/user';
 
 import axios from 'axios';
-import VueAxios from 'vue-axios';
+
 
 import App from './App.vue'
 import router from './router'
