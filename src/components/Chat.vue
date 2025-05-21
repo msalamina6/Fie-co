@@ -39,15 +39,15 @@
 import { getResponse } from "./service/ApiRest.js"
 import { ref, getCurrentInstance } from 'vue'
 
-var chatMessage = ref([]);
+const chatMessage = ref([]);
 
-var message = ref('');
+const message = ref('');
 
 const sendMessage = () => {
     console.log("CIAO")
     chatMessage.value.push({"message": message.value, "sender": "US"})
     refresh()
-    var response = getResponse(message.value).then(response =>
+    getResponse(message.value).then(response =>
     {
         chatMessage.value.push({"message": response.data.response, "sender": "AI"})
         console.log(chatMessage.value)

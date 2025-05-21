@@ -1,9 +1,9 @@
 <script setup>
-import { RouterLink, RouterView, useRoute } from 'vue-router'
-import {getCurrentInstance, useTemplateRef, onMounted, watch} from 'vue'
+import { RouterView, useRoute } from 'vue-router'
+import { useTemplateRef, watch} from 'vue'
 import Navbar from './components/Navbar.vue'
 import Footer from './components/Footer.vue'
-import Chat from './components/Chat.vue'
+import from './components/Chat.vue'
 
 const childRef = useTemplateRef('navbar')
 
@@ -19,17 +19,16 @@ watch(() => route.fullPath,() => {
 
 <template>
     <div class="grid grid-cols-4">
-      <!--<div class="col-span-3">-->
+      
       <div class="col-span-4">
       <Navbar ref="navbar"></Navbar>
         <RouterView/>
         <Footer></Footer>
       </div>
       
-      <!--<Chat class="col-span-1"></Chat>-->   
+      
     </div>
 </template>
 
 <style scoped>
-
 </style>

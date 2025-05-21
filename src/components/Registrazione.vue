@@ -69,13 +69,13 @@ import { getHashFromTest, registrazione } from "./service/ApiRest.js"
 import {ref} from 'vue'
 import { useUserStore } from "@/stores/user"
 
-var nome = ref('');
-var cognome = ref('');
-var username = ref('');
-var dataNascita = ref('');
-var email = ref('');
-var password = ref('');
-var confPassword = ref('');
+const nome = ref('');
+const cognome = ref('');
+const username = ref('');
+const dataNascita = ref('');
+const email = ref('');
+const password = ref('');
+const confPassword = ref('');
 const store = useUserStore();
 const emit = defineEmits(['logged'])
 
@@ -85,7 +85,7 @@ const registrazioneComp = () => {
     const regExEmail = new RegExp("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$")
     const regExPass = new RegExp("^(?=.*\\d)(?=.*[a-zA-Z])(?=.*\\W).{8,}$")
 
-    var execute = true;
+    let execute = true;
 
     if(!regExNome.test(nome.value))
     {
@@ -105,7 +105,7 @@ const registrazioneComp = () => {
         execute = false;
     }
 
-    var dataNascitaDate = new Date(dataNascita.value)
+    const dataNascitaDate = new Date(dataNascita.value)
 
     if(dataNascitaDate.getFullYear() < 1920 || dataNascitaDate.getFullYear() > (new Date().getFullYear()-10))
     {
@@ -128,7 +128,7 @@ const registrazioneComp = () => {
     if(execute)
     {
         getHashFromTest(password.value).then(data => {
-            var body = {
+            const body = {
             nome: nome.value,
             cognome: cognome.value,
             username: username.value,
