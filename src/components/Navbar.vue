@@ -25,15 +25,17 @@ const triggerReg = () => {
 
 onBeforeMount(() => {
   checkUserSession().then(data => {
-    store.setUsername(data.data)
-    if (data.data != "" && data.data != undefined) logged()
+    store.setUsername(data.data.username)
+    store.setRole(data.data.role)
+    if (data.data.username != "" && data.data?.username != undefined) logged()
   });
 });
 
 const checkSession = () => {
   checkUserSession().then(data => {
-    store.setUsername(data.data)
-    if (data.data != "" && data.data != undefined) {
+    store.setUsername(data.data.username)
+    store.setRole(data.data.role)
+    if (data.data.username != "" && data.data?.username != undefined) {
       logged()
     } else {
       notLogged()

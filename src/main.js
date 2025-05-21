@@ -3,7 +3,7 @@ import './assets/main.css'
 
 import { createPinia } from 'pinia'
 import { useUserStore } from './stores/user';
-
+import { createApp } from 'vue';
 import axios from 'axios';
 
 

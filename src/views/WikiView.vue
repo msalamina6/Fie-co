@@ -70,7 +70,7 @@
 </template>
 
 <script setup> 
-import { onMounted } from 'vue'
+import { onMounted, ref } from 'vue'
 import { getArticoli, getArtRecenti, getArtPrincipali } from '../components/service/ApiRest.js'
 
 let articoli = ref([]);
