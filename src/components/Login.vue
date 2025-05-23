@@ -53,7 +53,8 @@ const loginComp = () => {
     }
 
     login(body).then(res => {
-      store.setUsername(res.data)
+      store.setUsername(res.data.username)
+      store.setRole(res.data.role)
       emit('logged')
     }).catch(res => {
       console.log(res)

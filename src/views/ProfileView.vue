@@ -191,7 +191,10 @@ const modificaProf = () => {
         }
 
         modifica(body).then(data => {
-          store.setUsername(data.data)
+          alert("Profilo modificato!")
+          store.setUsername(data.data.username)
+          store.setRole(data.data.role)
+          router.push("/")
         })
           .catch(data => {
             alert(data)
@@ -207,7 +210,10 @@ const modificaProf = () => {
       }
 
       modifica(body).then(data => {
-        store.setUsername(data.data)
+        alert("Profilo modificato!")
+        store.setUsername(data.data.username)
+        store.setRole(data.data.role)
+        router.push("/")
       })
         .catch(data => {
           alert(data)

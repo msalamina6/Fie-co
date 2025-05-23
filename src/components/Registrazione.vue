@@ -141,7 +141,8 @@ const registrazioneComp = () => {
 
             registrazione(body).then(data => {
                 console.log(data)
-                store.setUsername(data.data)
+                store.setUsername(data.data.username)
+                store.setRole(data.data.role)
                 emit('logged')
             })
             .catch( data => {
