@@ -71,7 +71,7 @@
 
 <script setup> 
 import { ref, getCurrentInstance } from 'vue'
-import { useUserStore } from "../stores/user"
+import { useUserStore } from "@/stores/user"
 
 import { onMounted } from 'vue'
 import { getArticoli, getArtRecenti, getArtPrincipali } from '../components/service/ApiRest.js'
