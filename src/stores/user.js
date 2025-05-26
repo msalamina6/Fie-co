@@ -5,25 +5,9 @@ import { useRouter } from 'vue-router'
 const router = useRouter()
 
 export const useUserStore = defineStore('user', () => {
-  const username = () => {
-        if (localStorage.getItem("username"))
-        {
-            return ref(localStorage.getItem("username"));
-        }
-        else{
-            return ref("")
-        } 
-    }
-
-      const role = () => {
-        if (localStorage.getItem("role"))
-        {
-            return ref(localStorage.getItem("role"));
-        }
-        else{
-            return ref("")
-        } 
-    }
+  const username = ref("");
+  const role = ref("");
+  
   const getUsername = computed(() => username.value)
   const getRole = computed(() => role.value)
 
