@@ -3,7 +3,7 @@ import { RouterView, useRoute } from 'vue-router'
 import { useTemplateRef, watch} from 'vue'
 import Navbar from './components/Navbar.vue'
 import Footer from './components/Footer.vue'
-import from './components/Chat.vue'
+
 
 const childRef = useTemplateRef('navbar')
 

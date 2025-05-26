@@ -14,9 +14,20 @@ export function registrazione(dati)
     return axios.post("http://localhost:5000/registrazione", dati)
 }
 
+export function eliminaArticolo(articolo)
+{
+    return axios.post("http://localhost:5000/eliminaArticolo", {articolo: articolo})
+}
+
+
 export function getDatiUtente(username)
 { 
     return axios.get("http://localhost:5000/getDatiUtente", {params:{username: username}})
+}
+
+export function getRicerca(query)
+{ 
+    return axios.get("http://localhost:5000/getArtRicerca", {params:{query: query}})
 }
 
 export function eliminaUtente(username)

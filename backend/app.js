@@ -50,7 +50,7 @@ app.post('/registrazione', async (req, res) => {
 
     console.log(req);
 
-    let checkUtenti = await db.manyOrNone("SELECT * FROM public.utenti WHERE email = $<email>",{
+    let checkUtenti = await db.manyOrNone("SELECT * FROM public.utenti WHERE email = $<email> AND tipo_utente != 'DU'",{
         email: req.body.email
     })
 
@@ -59,7 +59,7 @@ app.post('/registrazione', async (req, res) => {
         return res.status(403).send("Email già presente a sistema");
     }
 
-    checkUtenti = await db.manyOrNone("SELECT * FROM public.utenti WHERE username = $<username>",{
+    checkUtenti = await db.manyOrNone("SELECT * FROM public.utenti WHERE username = $<username> AND tipo_utente != 'DU'",{
         username: req.body.username
     })
 
@@ -75,22 +75,22 @@ app.post('/registrazione', async (req, res) => {
         dataNascita: req.body.dataNascita,
         email: req.body.email,
         password: req.body.password,
-        tipoUtente: "US"
+        tipo_utente: "US"
     }
 
-    await db.none("INSERT INTO public.utenti(email, nome, cognome, data_nascita, username, password, tipo_utente)VALUES($<email>, $<nome>, $<cognome>, $<dataNascita>, $<username>, $<password>, $<tipoUtente>);", utente)
+    await db.none("INSERT INTO public.utenti(email, nome, cognome, data_nascita, username, password, tipo_utente)VALUES($<email>, $<nome>, $<cognome>, $<dataNascita>, $<username>, $<password>, $<tipo_utente>);", utente)
 
     req.session.utente = utente;
 
     console.log(req.session.utente)
-    res.status(200).send(utente.username)
+    res.status(200).send({username: utente.username, role: utente.tipo_utente})
 })
 
 app.post('/modifica', async (req, res) => {
 
     console.log(req);
 
-    let checkUtenti = await db.manyOrNone("SELECT * FROM public.utenti WHERE username = $<username> AND email != $<email>",{
+    let checkUtenti = await db.manyOrNone("SELECT * FROM public.utenti WHERE username = $<username> AND email != $<email> AND tipo_utente != 'DU'",{
         username: req.body.username,
         email: req.body.email
     })
@@ -118,14 +118,14 @@ app.post('/modifica', async (req, res) => {
     req.session.utente = utente;
 
     console.log(req.session.utente)
-    res.status(200).send(utente.username)
+    res.status(200).send({username: utente.username, role: utente.tipo_utente})
 })
 
 app.post('/eliminaUtente', async (req, res) => {
 
     console.log(req);
 
-    let checkUtenti = await db.manyOrNone("SELECT * FROM public.utenti WHERE username = $<username>",{
+    let checkUtenti = await db.manyOrNone("SELECT * FROM public.utenti WHERE username = $<username> AND tipo_utente != 'DU'",{
         username: req.body.username,
     })
 
@@ -134,7 +134,8 @@ app.post('/eliminaUtente', async (req, res) => {
         return res.status(403).send("Username non presente a sistema");
     }
 
-    await db.none("DELETE FROM public.utenti WHERE email = $<email>", {email:checkUtenti[0].email}).then(() => {
+    //DU = deleted user, eliminazione logica dell'utente
+    await db.none("UPDATE public.utenti SET tipo_utente='DU' WHERE email = $<email>", {email:checkUtenti[0].email}).then(() => {
         req.session.utente = undefined;
         res.status(200).send("utente cancellato");
     }).catch(() => {
@@ -142,9 +143,29 @@ app.post('/eliminaUtente', async (req, res) => {
     })
 })
 
+app.post('/eliminaArticolo', async (req, res) => {
+
+    console.log(req);
+
+    let checkArticolo = await db.manyOrNone("SELECT * FROM public.articolo WHERE articolo = $<articolo>",{
+        articolo: req.body.articolo,
+    })
+
+    if(checkArticolo.length == 0)
+    {
+        return res.status(403).send("Articolo non presente a sistema");
+    }
+
+    await db.none("DELETE FROM public.articolo WHERE articolo = $<articolo>", {articolo:checkArticolo[0].articolo}).then(() => {
+        res.status(200).send("Articolo cancellato");
+    }).catch(() => {
+        res.status(500).send("Errore eliminazione")
+    })
+})
+
 app.get('/getDatiUtente', async (req, res) => {
 
-    let checkUtenti = await db.manyOrNone("SELECT * FROM public.utenti WHERE username = $<username>",{
+    let checkUtenti = await db.manyOrNone("SELECT * FROM public.utenti WHERE username = $<username> AND tipo_utente != 'DU'",{
         username: req.query.username
     })
 
@@ -164,7 +185,7 @@ app.get('/checkSession', async (req, res) => {
 
     if(req.session.utente != undefined)
     {
-        return res.send(req.session.utente.username)
+        return res.send({username: req.session.utente.username, role: req.session.utente.tipo_utente})
     }
     else
     {
@@ -198,6 +219,16 @@ app.get('/getArtRecenti', async (req, res) => {
         res.send(articoli)
     })
 
+    app.get('/getArtRicerca', async (req, res) => {
+        console.log(req.session.utente)
+    
+        const articoli = await db.manyOrNone("SELECT titolo, articolo FROM public.articolo WHERE titolo ILIKE $<query> ", {
+            query: '%'+req.query.query+'%'
+        });
+
+        res.send(articoli)
+    })
+
 app.get('/getArtPrincipali', async (req, res) => {
         console.log(req.session.utente)
     
@@ -225,11 +256,12 @@ app.post('/login', async (req, res) => {
         else
         {
             req.session.utente = checkUtenti[0];
-            return res.status(200).send(checkUtenti[0].username);
+            return res.status(200).send({username: checkUtenti[0].username, role: checkUtenti[0].tipo_utente});
         }
     }
 })
 
+//Implementazione API chatbot non più utilizzato ma ancora presenta e funzionante (nascosto)
 app.post('/chatbot/message', async (req, res) => {
 
 

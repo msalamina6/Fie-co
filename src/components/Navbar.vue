@@ -25,15 +25,17 @@ const triggerReg = () => {
 
 onBeforeMount(() => {
   checkUserSession().then(data => {
-    store.setUsername(data.data)
-    if (data.data != "" && data.data != undefined) logged()
+    store.setUsername(data.data.username)
+    store.setRole(data.data.role)
+    if (data.data.username != "" && data.data?.username != undefined) logged()
   });
 });
 
 const checkSession = () => {
   checkUserSession().then(data => {
-    store.setUsername(data.data)
-    if (data.data != "" && data.data != undefined) {
+    store.setUsername(data.data.username)
+    store.setRole(data.data.role)
+    if (data.data.username != "" && data.data?.username != undefined) {
       logged()
     } else {
       notLogged()
@@ -73,8 +75,8 @@ defineExpose({
       <ul class="flex flex-wrap items-center gap-5 text-white font-medium mt-4 sm:mt-0">
         <li><a href="/" class="hover:text-lime-300 transition">Home</a></li>
         <li><a href="/wiki" class="hover:text-lime-300 transition">Wiki</a></li>
-        <li><a href="qa.html" class="hover:text-lime-300 transition">Q&A</a></li>
-        <li><a href="iot.html" class="hover:text-lime-300 transition">Monitoraggio Dati</a></li>
+        <li><div class="text-gray-300 transition" >Q&A(CS)</div></li>
+        <li><div class="text-gray-300 transition" >Monitoraggio Dati(CS)</div></li>
 
         <!-- LOGIN BUTTON -->
         <li v-show="isLogged == false">

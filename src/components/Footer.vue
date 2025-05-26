@@ -1,5 +1,5 @@
 <script setup>
-import  from '../assets/plant-icon.png';
+
 </script>
 
 <template>

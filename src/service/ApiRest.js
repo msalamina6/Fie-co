@@ -1,7 +1,12 @@
  import axios from 'axios'
 
 
-const $toast = useToast();
+let $toast;
+try {
+  $toast = useToast();
+} catch (e) {
+  $toast = null; // fallback per i test
+}
 
  export function getResponse(message) {
     console.log(message)

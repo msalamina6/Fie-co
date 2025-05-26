@@ -56,24 +56,56 @@
     <h2 class="text-2xl font-semibold text-gray-700 mb-2">Altro</h2>
     <p class="text-gray-600">{{articolo.altro}}</p>
   </section>
+  <button
+    v-if="store.getRole == 'AD'"
+    @click="eliminazioneArticolo"
+    class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg shadow transition hover:scale-105"
+  >
+    Elimina Articolo
+  </button>
+  <button
+    @click="back()"
+    class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg shadow transition hover:scale-105"
+  >
+    Indietro
+  </button>
 </div>
 </template>
 <script setup>
-import { onMounted } from 'vue'
-import { useRoute } from 'vue-router'
-import { getArticolo } from '../components/service/ApiRest.js'
+import { onMounted, ref } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
+import { getArticolo, eliminaArticolo } from '../components/service/ApiRest.js'
+import { useUserStore } from "@/stores/user"
 
 const articolo = ref({});
-const router = useRoute();
+const store = useUserStore();
+const route = useRoute();
+const router = useRouter();
 const isRendered = ref(false);
 
 onMounted(() => {
     console.log(articolo.value)
-    getArticolo(router.params.articolo).then(data => {
+    getArticolo(route.params.articolo).then(data => {
         articolo.value = data.data[0];
         isRendered.value = true
     })
 })
+
+const eliminazioneArticolo = () => {
+  if(confirm("Sei sicuro di voler eliminare l'articolo?"))
+  {
+    eliminaArticolo(articolo.value.articolo).then(data => {
+      alert("Articolo eliminato!")
+      router.push("/")
+      }).catch(data => {
+      alert(data)
+    })
+  }
+}
+
+const back = () => {
+  router.push("/wiki")
+}
 
 
 </script>
