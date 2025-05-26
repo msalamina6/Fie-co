@@ -63,6 +63,12 @@
   >
     Elimina Articolo
   </button>
+  <button
+    @click="back()"
+    class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg shadow transition hover:scale-105"
+  >
+    Indietro
+  </button>
 </div>
 </template>
 <script setup>
@@ -95,6 +101,10 @@ const eliminazioneArticolo = () => {
       alert(data)
     })
   }
+}
+
+const back = () => {
+  router.push("/wiki")
 }
 
 

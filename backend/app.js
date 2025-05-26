@@ -219,6 +219,16 @@ app.get('/getArtRecenti', async (req, res) => {
         res.send(articoli)
     })
 
+    app.get('/getArtRicerca', async (req, res) => {
+        console.log(req.session.utente)
+    
+        const articoli = await db.manyOrNone("SELECT titolo, articolo FROM public.articolo WHERE titolo ILIKE $<query> ", {
+            query: '%'+req.query.query+'%'
+        });
+
+        res.send(articoli)
+    })
+
 app.get('/getArtPrincipali', async (req, res) => {
         console.log(req.session.utente)
     
